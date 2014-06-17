@@ -1,9 +1,18 @@
 #include <windows.h>
 #include "resource.h"
+
 #include <windowsx.h>
+
 
 static int iSysWidth;
 static int iSysHeight;
+
+HINSTANCE hInst;
+
+#define IDB_TOOLS_GROUP 100
+
+
+
 HINSTANCE hInstance;
 
 
@@ -30,6 +39,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 
     /* The Window structure */
     wincl.hInstance = hThisInstance;
+    hInst = hThisInstance;
     wincl.lpszClassName = szClassName;
     wincl.lpfnWndProc = WindowProcedure;      /* This function is called by windows */
     wincl.style = CS_DBLCLKS;                 /* Catch double-clicks */
@@ -87,8 +97,11 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-    static HWND check1,chech2,check3,check4,check5;
+
+
+    static HWND check1,check2,check3,check4,check5,hwndToolsGroup;
     static HDC hdcCat1, hdcCat2, hdcGuffy1, hdcGuffy2;
+
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
     static HBITMAP hbmpCat1 = NULL ;
     static HBITMAP hbmpCat2 = NULL;
@@ -99,10 +112,10 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     HDC hdc = GetDC(hwnd);
 
     // load bitmaps
-    hbmpCat1 = (HBITMAP)LoadImage(hInstance, "Cat1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    hbmpCat1 = (HBITMAP)LoadImage(hInst, "Cat1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpCat1, sizeof(bitmapCat1), &bitmapCat1);
 
-    hbmpCat2 = (HBITMAP)LoadImage(hInstance, "Cat2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    hbmpCat2 = (HBITMAP)LoadImage(hInst, "Cat2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpCat2, sizeof(bitmapCat2), &bitmapCat2);
 
     //Static variables for mouse Coordinates
@@ -118,6 +131,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
     switch (message)                  /* handle the messages */
     {
+
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -141,7 +155,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         break;
 
             case WM_CREATE:
-            /*hwndToolsGroup = CreateWindowEx(
+            hwndToolsGroup = CreateWindowEx(
                 0,
                 "Button",
                 "Tools",
@@ -153,86 +167,77 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hInst,
                 NULL);
 
-            // Pen tool
-            hwndPencilTool = CreateWindowEx(
+
+            check1 = CreateWindowEx(
                 0,
                 "Button",
-                "Pencil",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check1",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 15,
                 120, 20,
                 hwndToolsGroup,
-                (HMENU)IDB_PENCIL_TOOL,
+                NULL,
                 hInst,
                 NULL);
-            Button_SetCheck(hwndPencilTool, BST_CHECKED);
 
-            // Ellipse tool
-            hwndEllipseTool = CreateWindowEx(
+
+            check2 = CreateWindowEx(
                 0,
                 "Button",
-                "Ellipse",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check2",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 35,
                 120, 20,
                 hwndToolsGroup,
-                (HMENU)IDB_ELLIPSE_TOOL,
+                NULL,
                 hInst,
                 NULL);
 
-            // Rectangle tool
-            hwndRectangleTool = CreateWindowEx(
+
+            check3 = CreateWindowEx(
                 0,
                 "Button",
-                "Rectangle",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check3",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 55,
                 120, 20,
                 hwndToolsGroup,
-                (HMENU)IDB_RECTANGLE_TOOL,
+                NULL,
                 hInst,
                 NULL);
 
-            // Line tool
-            hwndLineTool = CreateWindowEx(
+
+            check4 = CreateWindowEx(
                 0,
                 "Button",
-                "Line",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check4",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 75,
                 120, 20,
                 hwndToolsGroup,
-                (HMENU)IDB_LINE_TOOL,
+                NULL,
                 hInst,
                 NULL);
 
-            // Bezier tool
-            hwndBezierTool = CreateWindowEx(
+
+            check5 = CreateWindowEx(
                 0,
                 "Button",
-                "Bezier",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check5",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 95,
                 120, 20,
                 hwndToolsGroup,
-                (HMENU)IDB_ERASER_TOOL,
+                NULL,
                 hInst,
                 NULL);
 
-            // Eraser tool
-            hwndEraserTool = CreateWindowEx(
-                0,
-                "Button",
-                "Eraser",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
-                10, 115,
-                120, 20,
-                hwndToolsGroup,
-                (HMENU)IDB_ERASER_TOOL,
-                hInst,
-                NULL);
-*/
-        break;
+
+
+
+           break;
+
+
 
             //Work with LButton
             case WM_LBUTTONDOWN:
@@ -250,6 +255,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 //}
                 }
                 break;
+
 
             case WM_PAINT:
                 {
@@ -269,7 +275,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
                 }
 
+
+
+
+
+
                 break;
+
+      break;
+
 
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
