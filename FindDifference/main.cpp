@@ -53,7 +53,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     hwnd = CreateWindowEx (
            0,                   /* Extended possibilites for variation */
            szClassName,         /* Classname */
-           "Code::Blocks Template Windows App",       /* Title Text */
+           "Game::Find the difference",       /* Title Text */
            WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX, /* default window */
            iSysWidth/4,       /* Windows decides the position */
            iSysHeight/25,       /* where the window ends up on the screen */
@@ -134,7 +134,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 {
                     //Exit Coammand
                     case IDI_EXIT:
-                        PostQuitMessage (0);
+                        {
+                            PostQuitMessage (0);
+                        }
+
+                    case IDI_NEW:
+                        {
+
+                        }
+
                     break;
 
                 }
