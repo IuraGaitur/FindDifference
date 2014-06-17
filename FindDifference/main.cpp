@@ -1,11 +1,19 @@
 #include <windows.h>
 #include "resource.h"
+<<<<<<< HEAD
 #include <windowsx.h>
 
 static int iSysWidth;
 static int iSysHeight;
 
 #define IDB_TOOLS_GROUP 100
+=======
+
+static int iSysWidth;
+static int iSysHeight;
+HINSTANCE hInstance;
+
+>>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
 
 
 /*  Declare Windows procedure  */
@@ -89,7 +97,20 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 {
 
     static HWND check1,chech2,check3,check4,check5;
+    static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
+    static HBITMAP hbmpCat1 = NULL ;
+    static HBITMAP hbmpCat2 = NULL;
+    static HBITMAP hbmpGuffy1 = NULL;
+    static HBITMAP hbmpGuffy2 = NULL;
 
+    // load bitmaps
+    hbmpCat1 = (HBITMAP)LoadImage(hInstance, "Cat1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    GetObject(hbmpCat1, sizeof(bitmapCat1), &bitmapCat1);
+
+    hbmpCat2 = (HBITMAP)LoadImage(hInstance, "Cat2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    GetObject(hbmpCat2, sizeof(bitmapCat2), &bitmapCat2);
+
+<<<<<<< HEAD
     //Static variables for mouse Coordinates
     static int xMouse, yMouse;
 	xMouse = GET_X_LPARAM(lParam);
@@ -98,6 +119,16 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     switch (message)                  /* handle the messages */
     {
 
+=======
+    /*hEllipse = (HBITMAP)LoadImage(hInstance, "ellipse.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    GetObject(hEllipse, sizeof(ellipsebit), &ellipsebit);
+
+    hRect = (HBITMAP)LoadImage(hInstance, "rect.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    GetObject(hRect, sizeof(rectbit), &rectbit);*/
+
+    switch (message)                  /* handle the messages */
+    {
+>>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -210,6 +241,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hwndToolsGroup,
                 (HMENU)IDB_ERASER_TOOL,
                 hInst,
+<<<<<<< HEAD
                 NULL);
 */
         break;
@@ -229,6 +261,38 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 //}
                 }
                 break;
+=======
+                NULL);*/
+                break;
+
+            case WM_PAINT:
+                {
+                    hDC = BeginPaint(hwnd, &Ps);
+
+                    hdcMem = CreateCompatibleDC(hdc);
+                    SelectObject(hdcMem, hbmplogo);
+                    BitBlt(hdc, 515, 40, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
+                    DeleteDC(hdcMem);
+
+                    hdcLine = CreateCompatibleDC(hdc);
+                    SelectObject(hdcLine, hLine);
+                    BitBlt(hdc, 525, 65, linebit.bmWidth, linebit.bmHeight, hdcLine, 0, 0, SRCCOPY);
+                    DeleteDC(hdcLine);
+
+                    hdcEllipse = CreateCompatibleDC(hdc);
+                    SelectObject(hdcEllipse, hEllipse);
+                    BitBlt(hdc, 538, 90, ellipsebit.bmWidth, ellipsebit.bmHeight, hdcEllipse, 0, 0, SRCCOPY);
+                    DeleteDC(hdcEllipse);
+
+                    hdcRect = CreateCompatibleDC(hdc);
+                    SelectObject(hdcRect, hRect);
+                    BitBlt(hdc, 555, 115, rectbit.bmWidth, rectbit.bmHeight, hdcRect, 0, 0, SRCCOPY);
+                    DeleteDC(hdcRect);
+
+                    HBRUSH hBrush;
+
+                }
+>>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
 
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
