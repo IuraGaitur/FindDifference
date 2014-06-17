@@ -122,10 +122,32 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 	xMouse = GET_X_LPARAM(lParam);
 	yMouse = GET_Y_LPARAM(lParam);
 
-    RECT arr[1];
+    //Array of Rectangles
+    RECT arr[10];
 
+    //Coordinates of the differences
     RECT rect1 = {508,122,569,165};
+    RECT rect2 = {511,161,562,177};
+    RECT rect3 = {546, 202, 556, 211 };
+    RECT rect4 = {578, 234, 602, 231};
+    RECT rect5 = {645, 325, 683, 330};
+    RECT rect6 = {586, 292, 622, 322};
+    RECT rect7 = {498, 359, 521, 388};
+    RECT rect8 = {520, 289, 557, 298};
+    RECT rect9 = {544, 392, 549, 394 };
+    RECT rect10 = {459, 319, 465, 323};
+
+    //Assigning the values of rect to it's possition in array
     arr[0] = rect1;
+    arr[1] = rect2;
+    arr[2] = rect3;
+    arr[3] = rect4;
+    arr[4] = rect5;
+    arr[5] = rect6;
+    arr[6] = rect7;
+    arr[7] = rect8;
+    arr[8] = rect9;
+    arr[9] = rect10;
     /*hEllipse = (HBITMAP)LoadImage(hInstance, "ellipse.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hEllipse, sizeof(ellipsebit), &ellipsebit);
 
@@ -167,7 +189,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
             case WM_CREATE:
 
-                for(int i=0;i<10;i++)
+                for(int i=0;i<sizeof(checks)/sizeof(HWND);i++)
                 {
                     checks[i] = CreateWindow(TEXT("button"), TEXT(""),
                             WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
@@ -191,9 +213,10 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
                 for (int i = 0; i < sizeof(arr)/sizeof(RECT); i++)
                 {
-                    if(arr[i].left < xMouse < arr[i].right && arr[i].top < yMouse < arr[i].bottom )
+                    if(arr[i].left < xMouse && xMouse < arr[i].right && arr[i].top < yMouse && yMouse < arr[i].bottom )
                     {
                         MessageBoxA(NULL,"sdsds", "wada", MB_OK | MB_ICONINFORMATION);
+                        SendMessage(checks[i], BM_SETCHECK, 1, 0);
                         break;
                     }
                 }
