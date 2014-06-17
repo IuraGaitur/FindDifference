@@ -88,11 +88,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 {
 
     static HWND check1,chech2,check3,check4,check5;
+    static HDC hdcCat1, hdcCat2, hdcGuffy1, hdcGuffy2;
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
     static HBITMAP hbmpCat1 = NULL ;
     static HBITMAP hbmpCat2 = NULL;
     static HBITMAP hbmpGuffy1 = NULL;
     static HBITMAP hbmpGuffy2 = NULL;
+    HDC hDC;
+    PAINTSTRUCT Ps;
+    HDC hdc = GetDC(hwnd);
 
     // load bitmaps
     hbmpCat1 = (HBITMAP)LoadImage(hInstance, "Cat1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -228,29 +232,20 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 {
                     hDC = BeginPaint(hwnd, &Ps);
 
-                    hdcMem = CreateCompatibleDC(hdc);
-                    SelectObject(hdcMem, hbmplogo);
-                    BitBlt(hdc, 515, 40, bitmap.bmWidth, bitmap.bmHeight, hdcMem, 0, 0, SRCCOPY);
-                    DeleteDC(hdcMem);
+                    hdcCat1 = CreateCompatibleDC(hdc);
+                    SelectObject(hdcCat1, hbmpCat1);
+                    BitBlt(hdc, 37, 80, bitmapCat1.bmWidth, bitmapCat1.bmHeight, hdcCat1, 0, 0, SRCCOPY);
+                    DeleteDC(hdcCat1);
 
-                    hdcLine = CreateCompatibleDC(hdc);
-                    SelectObject(hdcLine, hLine);
-                    BitBlt(hdc, 525, 65, linebit.bmWidth, linebit.bmHeight, hdcLine, 0, 0, SRCCOPY);
-                    DeleteDC(hdcLine);
+                    hdcCat2 = CreateCompatibleDC(hdc);
+                    SelectObject(hdcCat2, hbmpCat2);
+                    BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
+                    DeleteDC(hdcCat2);
 
-                    hdcEllipse = CreateCompatibleDC(hdc);
-                    SelectObject(hdcEllipse, hEllipse);
-                    BitBlt(hdc, 538, 90, ellipsebit.bmWidth, ellipsebit.bmHeight, hdcEllipse, 0, 0, SRCCOPY);
-                    DeleteDC(hdcEllipse);
-
-                    hdcRect = CreateCompatibleDC(hdc);
-                    SelectObject(hdcRect, hRect);
-                    BitBlt(hdc, 555, 115, rectbit.bmWidth, rectbit.bmHeight, hdcRect, 0, 0, SRCCOPY);
-                    DeleteDC(hdcRect);
-
-                    HBRUSH hBrush;
+                    EndPaint(hwnd, &Ps);
 
                 }
+                break;
 
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
