@@ -15,8 +15,5 @@ END
 
 BitmapFile BITMAP Cat1.bmp
 BitmapFile1 BITMAP Cat2.bmp
-BitmapFile2 BITMAP Guffy1.bmp
-BitmapFile3 BITMAP Guffy2.bmp
-BitmapFile4 BITMAP Lupu1.bmp
-BitmapFile5 BITMAP Lupu2.bmp
+
 

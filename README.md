@@ -28,6 +28,7 @@ Collaboration. Complex application.
       - dissable window resize option
       - get the screen coordonates
       - implement the algorithm of finding the differences
+      - adding SFX
 
 
     * **Leahu Luminita** has the responsibility to:
@@ -38,7 +39,10 @@ Collaboration. Complex application.
       - create the title and the story
       - clean up and make the code visible
 
-* Make it useful (you may ask me to evaluate usefulness of your application idea) **(0-3 pt)**
+* Make it useful (you may ask me to evaluate usefulness of your application idea) **(2 pt)**
+  
+  Our application is not so useful, but is a perfect game for kids. It is an interestig and funny mini-game which develop the spirit of observation. 
+
 * First create a sketch, then work on code **(1 pt)** _(commit sketches early)_
 
 	![screen](https://raw.githubusercontent.com/IuraGaitur/FindDifference/master/Images/Screenshot_2.png)

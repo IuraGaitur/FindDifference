@@ -1,27 +1,30 @@
 # depslib dependency file v1.0
 154051336 <<<<< HEAD
 
-1403006420 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
+1403021283 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
 	<windowsx.h>
+	<mmsystem.h>
 
 1403001337 >
 
-1403010412 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
+1403029977 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
+	<iostream>
 	<windowsx.h>
+	<mmsystem.h>
 
-1403004379 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.rc
+1403026052 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.rc
 	"resource.h"
 	"afxres.h"
 
-1403008963 d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.h
+1403029186 d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.h
 
 1403001969 8aaf70f695351f0c73ec4fba10ef479d42701
 
-1403006420 d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\resource.h
+1403010792 d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\resource.h
 
 1403006420 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\resource.rc
 	"resource.h"

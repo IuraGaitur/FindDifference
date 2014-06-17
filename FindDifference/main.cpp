@@ -1,15 +1,15 @@
 #include <windows.h>
 #include "resource.h"
+#include <iostream>
 #include <windowsx.h>
+#include <mmsystem.h>
+#pragma comment(lib,"Winmm.lib")
 
+using namespace std;
 
 static int iSysWidth;
 static int iSysHeight;
-
 HINSTANCE hInst;
-
-HINSTANCE hInstance;
-
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -89,17 +89,18 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 /*  This function is called by the Windows function DispatchMessage()  */
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    HWND checks[10];
+    static HWND checks[10];
+    static int  IDs[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int x = 400,y = 500;
-    static HDC hdcCat1, hdcCat2, hdcGuffy1, hdcGuffy2;
+    static HDC hdcCat1, hdcCat2;
 
-    static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
+    static BITMAP bitmapCat1, bitmapCat2;
     static HBITMAP hbmpCat1 = NULL ;
     static HBITMAP hbmpCat2 = NULL;
-    static HBITMAP hbmpGuffy1 = NULL;
-    static HBITMAP hbmpGuffy2 = NULL;
+
     static HFONT font_forte, text_font;
-    HDC hDC;
+    static RECT area = {400, 80, 707, 470};
+
     PAINTSTRUCT Ps;
     HDC hdc = GetDC(hwnd);
     HBRUSH hbrush;
@@ -117,113 +118,159 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 	xMouse = GET_X_LPARAM(lParam);
 	yMouse = GET_Y_LPARAM(lParam);
 
+    //Array of Rectangles
+    RECT arr[10];
+
+    //Coordinates of the differences
+    RECT rect1 = {508,122,569,165};
+    RECT rect2 = {511,161,562,177};
+    RECT rect3 = {546, 202, 556, 211 };
+    RECT rect4 = {578, 234, 602, 231};
+    RECT rect5 = {645, 325, 683, 330};
+    RECT rect6 = {586, 292, 622, 322};
+    RECT rect7 = {498, 359, 521, 388};
+    RECT rect8 = {520, 289, 557, 298};
+    RECT rect9 = {544, 392, 549, 394 };
+    RECT rect10 = {459, 319, 465, 323};
+
+    //Assigning the values of rect to it's possition in array
+    arr[0] = rect1;
+    arr[1] = rect2;
+    arr[2] = rect3;
+    arr[3] = rect4;
+    arr[4] = rect5;
+    arr[5] = rect6;
+    arr[6] = rect7;
+    arr[7] = rect8;
+    arr[8] = rect9;
+    arr[9] = rect10;
+
     switch (message)                  /* handle the messages */
     {
-        case WM_GETMINMAXINFO:
-            {
-                LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
-                pInfo -> ptMaxTrackSize.x = 750;
-                pInfo -> ptMaxTrackSize.y = 700;
+    case WM_GETMINMAXINFO:
+        {
+            LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
+            pInfo -> ptMaxTrackSize.x = 750;
+            pInfo -> ptMaxTrackSize.y = 700;
 
-                pInfo -> ptMinTrackSize.x= 750;
-                pInfo -> ptMinTrackSize.y = 700;
+            pInfo -> ptMinTrackSize.x= 750;
+            pInfo -> ptMinTrackSize.y = 700;
+        }
+    break;
+
+    case WM_COMMAND:
+        {
+        switch(LOWORD(wParam))
+            {
+             case IDI_EXIT:      //Exit Coammand
+                {
+                    PostQuitMessage (0);
+                }
+
+            case IDI_NEW:
+                {
+                    InvalidateRect(hwnd, &area, FALSE);
+                    InvalidateRect(hwnd, &area, TRUE);
+
+                    for (int i=0; i<10; i++)
+                    {
+                        CheckDlgButton(hwnd, IDs[i], BST_UNCHECKED);
+                    }
+                }
             }
         break;
+        }
+    break;
 
-        case WM_COMMAND:
-           switch(LOWORD(wParam))
-                {
-                    //Exit Coammand
-                    case IDI_EXIT:
-                        {
-                            PostQuitMessage (0);
-                        }
-
-                    case IDI_NEW:
-                        {
-
-                        }
-
-                    break;
-
-                }
-        break;
-
-            case WM_CREATE:
-
-                for(int i=0;i<10;i++)
-                {
-                    checks[i] = CreateWindow(TEXT("button"), TEXT(""),
-                            WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                            x, 500, 12, 12,
-                            hwnd, (HMENU) 1, hInst, NULL);
-                    x+=16;
-                    //TextOut (hdc,x,500,"asda",4);
-                    x+=16;
-                }
-           break;
-
-            //Work with LButton
-            case WM_LBUTTONDOWN:
-                {
-
-                    //if(xMouse >)
-                    char str [256];
-                    POINT pt;
-                    pt.x = LOWORD(lParam);
-                    pt.y = HIWORD(lParam);
-                    wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
-                //if(xMouse > 20 && xMouse < 410 && yMouse > 50 && yMouse <500)
-                //{
-                   MessageBoxA(NULL,str, "Message", MB_OK | MB_ICONINFORMATION);
-                //}
-                }
-                break;
-
-
-            case WM_PAINT:
-                {
-                    hDC = BeginPaint(hwnd, &Ps);
-
-                    hdcCat1 = CreateCompatibleDC(hdc);
-                    SelectObject(hdcCat1, hbmpCat1);
-                    BitBlt(hdc, 37, 80, bitmapCat1.bmWidth, bitmapCat1.bmHeight, hdcCat1, 0, 0, SRCCOPY);
-                    DeleteDC(hdcCat1);
-
-                    hdcCat2 = CreateCompatibleDC(hdc);
-                    SelectObject(hdcCat2, hbmpCat2);
-                    BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
-                    DeleteDC(hdcCat2);
-
-                    GetClientRect(hwnd, &rect);  // retrieves the coordinates of a window's client area
-
-                    // create the title
-                    font_forte   = CreateFont(30, 27.5, 0, 0, FW_DONTCARE, false, false, false,
-                                      DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                                      DEFAULT_QUALITY, FF_DONTCARE, "Forte");
-
-                    text_font  = (HFONT)SelectObject(hdc, font_forte);   // setting new font for text
-                    SetTextColor(hdc, TITLE_COLOR);                     // setting new text color
-                    TextOut( hdc, 115, 20,  "Find the difference", 19);
-
-                    EndPaint(hwnd, &Ps);
-
-                }
-                break;
-
-        case WM_CTLCOLORSTATIC:
+    case WM_CREATE:
+        {
+           for(int i=0; i<sizeof(checks)/sizeof(HWND); i++)
             {
-                //SetTextColor((HDC)wParam,RGB(color_id + 20, 100, 255 - color_id)); // text color
-                SetBkMode((HDC)wParam,TRANSPARENT);                                // transparent background
-                hbrush=(HBRUSH)GetStockObject(NULL_BRUSH);                         // handle to brush, no background color
-                return(LRESULT) hbrush;
+                checks[i] = CreateWindow(TEXT("button"), TEXT(""),
+                        WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
+                        x, 500, 12, 12,
+                        hwnd, (HMENU) IDs[i], hInst, NULL);
+                cout << IDs[i] << endl;
+                x+=16;
+                //TextOut (hdc,x,500,"asda",4);
+                x+=16;
             }
-        break;
+       break;
+        }
 
+    //Work with LButton
+    case WM_LBUTTONDOWN:
+        {
+            for (int i = 0; i < sizeof(arr)/sizeof(RECT); i++)
+            {
+                if(arr[i].left < xMouse && xMouse < arr[i].right && arr[i].top < yMouse && yMouse < arr[i].bottom )
+                {
+                    PlaySound("Level.wav", NULL, SND_ASYNC);
+                    DrawEdge(hdc, &arr[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
+                    CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
 
-        case WM_DESTROY:
+                    //SendMessage(checks[i], BM_SETCHECK, BST_CHECKED, 0);
+                }
+
+            }
+
+            char str [256];
+            POINT pt;
+            pt.x = LOWORD(lParam);
+            pt.y = HIWORD(lParam);
+            wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
+
+            MessageBoxA(NULL,str, "Message", MB_OK | MB_ICONINFORMATION);
+
+        }
+    break;
+
+    case WM_PAINT:
+        {
+            BeginPaint(hwnd, &Ps);
+
+            hdcCat1 = CreateCompatibleDC(hdc);
+            SelectObject(hdcCat1, hbmpCat1);
+            BitBlt(hdc, 37, 80, bitmapCat1.bmWidth, bitmapCat1.bmHeight, hdcCat1, 0, 0, SRCCOPY);
+            DeleteObject(hdcCat1);
+
+            hdcCat2 = CreateCompatibleDC(hdc);
+            SelectObject(hdcCat2, hbmpCat2);
+            BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
+            DeleteObject(hdcCat2);
+
+            GetClientRect(hwnd, &rect);  // retrieves the coordinates of a window's client area
+
+            // create the title
+            font_forte   = CreateFont(30, 27.5, 0, 0, FW_DONTCARE, false, false, false,
+                              DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                              DEFAULT_QUALITY, FF_DONTCARE, "Forte");
+
+            text_font  = (HFONT)SelectObject(hdc, font_forte);   // setting new font for text
+            SetTextColor(hdc, TITLE_COLOR);                     // setting new text color
+            TextOut( hdc, 115, 20,  "Find the difference", 19);
+
+            EndPaint(hwnd, &Ps);
+
+        }
+    break;
+
+    case WM_CTLCOLORSTATIC:
+        {
+            SetBkMode((HDC)wParam,TRANSPARENT);                                // transparent background
+            hbrush=(HBRUSH)GetStockObject(NULL_BRUSH);                         // handle to brush, no background color
+            return(LRESULT) hbrush;
+        }
+    break;
+
+    case WM_DESTROY:
+        {
+            DeleteFont(font_forte);
+            DeleteFont(text_font);
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
-            break;
+        }
+    break;
+
         default:                      /* for messages that we don't deal with */
             return DefWindowProc (hwnd, message, wParam, lParam);
     }
