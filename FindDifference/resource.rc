@@ -1,0 +1,14 @@
+
+#include "resource.h"
+#include "afxres.h"
+//Icon location
+IDI_ICON  ICON DISCARDABLE "findDifference.ico"
+
+IDI_MENU MENU DISCARDABLE
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New game",       IDI_NEW
+        MENUITEM "&Exit",           IDI_EXIT
+    END
+END
