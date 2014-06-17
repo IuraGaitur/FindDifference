@@ -1,7 +1,8 @@
 #include <windows.h>
 #include "resource.h"
 #include <windowsx.h>
-
+#include <mmsystem.h>
+#pragma comment(lib,"Winmm.lib")
 
 static int iSysWidth;
 static int iSysHeight;
@@ -187,7 +188,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 }
         break;
 
-            case WM_CREATE:
+        case WM_CREATE:
 
                 for(int i=0;i<sizeof(checks)/sizeof(HWND);i++)
                 {
@@ -215,8 +216,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 {
                     if(arr[i].left < xMouse && xMouse < arr[i].right && arr[i].top < yMouse && yMouse < arr[i].bottom )
                     {
+                        PlaySound("Level.wav", NULL, SND_ASYNC);
                         MessageBoxA(NULL,"sdsds", "wada", MB_OK | MB_ICONINFORMATION);
-                        SendMessage(checks[i], BM_SETCHECK, 1, 0);
+                        SendMessage(checks[i], BM_SETCHECK, BST_CHECKED, 0);
                         break;
                     }
                 }
@@ -241,12 +243,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     hdcCat1 = CreateCompatibleDC(hdc);
                     SelectObject(hdcCat1, hbmpCat1);
                     BitBlt(hdc, 37, 80, bitmapCat1.bmWidth, bitmapCat1.bmHeight, hdcCat1, 0, 0, SRCCOPY);
-                    DeleteDC(hdcCat1);
+                    DeleteObject(hdcCat1);
 
                     hdcCat2 = CreateCompatibleDC(hdc);
                     SelectObject(hdcCat2, hbmpCat2);
                     BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
-                    DeleteDC(hdcCat2);
+                    DeleteObject(hdcCat2);
 
                     GetClientRect(hwnd, &rect);  // retrieves the coordinates of a window's client area
 
@@ -258,7 +260,6 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     text_font  = (HFONT)SelectObject(hdc, font_forte);   // setting new font for text
                     SetTextColor(hdc, TITLE_COLOR);                     // setting new text color
                     TextOut( hdc, 115, 20,  "Find the difference", 19);
-
                     EndPaint(hwnd, &Ps);
 
                 }
@@ -275,6 +276,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
 
         case WM_DESTROY:
+            /*DeleteObject(bitmapCat1);
+            DeleteBitmap(bitmapCat2);
+            DeleteBitmap(bitmapGuffy1);
+            DeleteBitmap(bitmapGuffy2);*/
+            DeleteFont(font_forte);
+            DeleteFont(text_font);
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
         default:                      /* for messages that we don't deal with */
