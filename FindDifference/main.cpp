@@ -91,10 +91,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    static HWND check1,check2,check3,check4,check5,hwndToolsGroup;
-
-    HWND checks[8];
-    int x = 400;
+    HWND checks[10];
+    int x = 400,y = 500;
     static HDC hdcCat1, hdcCat2, hdcGuffy1, hdcGuffy2;
 
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
@@ -162,13 +160,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
             case WM_CREATE:
 
-                for(int i=0;i<8;i++)
+                for(int i=0;i<10;i++)
                 {
-                    checks[i] = CreateWindow(TEXT("button"), TEXT(""+i),
-                            WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
-                            x, 500, 15, 12,
-                            hwnd, (HMENU) 1, ((LPCREATESTRUCT)lParam)->hInstance, NULL);
-                    x+=20;
+                    checks[i] = CreateWindow(TEXT("button"), TEXT(""),
+                            WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
+                            x, 500, 12, 12,
+                            hwnd, (HMENU) 1, hInst, NULL);
+                    x+=16;
+                    //TextOut (hdc,x,500,"asda",4);
+                    x+=16;
                 }
            break;
 
