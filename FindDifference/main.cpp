@@ -1,16 +1,15 @@
 #include <windows.h>
 #include "resource.h"
 
+#include <windowsx.h>
+
 
 static int iSysWidth;
 static int iSysHeight;
 HINSTANCE hIns;
 
 #define IDB_TOOLS_GROUP 100
-=======
-static int iSysWidth;
-static int iSysHeight;
-HINSTANCE hInstance;
+
 
 
 /*  Declare Windows procedure  */
@@ -36,6 +35,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 
     /* The Window structure */
     wincl.hInstance = hThisInstance;
+    hIns = hThisInstance;
     wincl.lpszClassName = szClassName;
     wincl.lpfnWndProc = WindowProcedure;      /* This function is called by windows */
     wincl.style = CS_DBLCLKS;                 /* Catch double-clicks */
@@ -94,9 +94,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 {
 
 
-    static HWND check1,chech2,check3,check4,check5,hwndToolsGroup;
+    static HWND check1,check2,check3,check4,check5,hwndToolsGroup;
 
-    static HWND check1,chech2,check3,check4,check5;
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
     static HBITMAP hbmpCat1 = NULL ;
     static HBITMAP hbmpCat2 = NULL;
@@ -111,6 +110,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     GetObject(hbmpCat2, sizeof(bitmapCat2), &bitmapCat2);
 
 
+    //Static variables for mouse Coordinates
+    static int xMouse, yMouse;
+	xMouse = GET_X_LPARAM(lParam);
+	yMouse = GET_Y_LPARAM(lParam);
+
+    switch (message)                  /* handle the messages */
+    {
+
+
     /*hEllipse = (HBITMAP)LoadImage(hInstance, "ellipse.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hEllipse, sizeof(ellipsebit), &ellipsebit);
 
@@ -119,7 +127,6 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
     switch (message)                  /* handle the messages */
     {
-
 
         case WM_GETMINMAXINFO:
             {
@@ -165,7 +172,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 10, 15,
                 120, 20,
                 hwndToolsGroup,
-                (HMENU)IDB_PENCIL_TOOL,
+                NULL,
                 hInst,
                 NULL);
             Button_SetCheck(hwndPencilTool, BST_CHECKED);
@@ -179,11 +186,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 10, 35,
                 120, 20,
                 hwndToolsGroup,
-                (HMENU)IDB_ELLIPSE_TOOL,
+                NULL,
                 hInst,
                 NULL);
 
-            // Rectangle tool
+
             check3 = CreateWindowEx(
                 0,
                 "Button",
@@ -196,7 +203,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hInst,
                 NULL);
 
-            // Line tool
+
             check4 = CreateWindowEx(
                 0,
                 "Button",
@@ -223,7 +230,26 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 NULL);
 
 
+
            break;
+
+
+            //Work with LButton
+            case WM_LBUTTONDOWN:
+                {
+
+                    char str [256];
+                    POINT pt;
+                    pt.x = LOWORD(lParam);
+                    pt.y = HIWORD(lParam);
+                    wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
+                //if(xMouse > 20 && xMouse < 410 && yMouse > 50 && yMouse <500)
+                //{
+                   MessageBoxA(NULL,str, "wada", MB_OK | MB_ICONINFORMATION);
+                //}
+                }
+                break;
+
 
             case WM_PAINT:
                 {
@@ -252,6 +278,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     HBRUSH hBrush;
 
                 }
+
 
 
         case WM_DESTROY:
