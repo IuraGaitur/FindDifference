@@ -86,9 +86,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     return messages.wParam;
 }
 
-
 /*  This function is called by the Windows function DispatchMessage()  */
-
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     HWND checks[10];
@@ -119,15 +117,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 	xMouse = GET_X_LPARAM(lParam);
 	yMouse = GET_Y_LPARAM(lParam);
 
-    /*hEllipse = (HBITMAP)LoadImage(hInstance, "ellipse.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-    GetObject(hEllipse, sizeof(ellipsebit), &ellipsebit);
-
-    hRect = (HBITMAP)LoadImage(hInstance, "rect.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-    GetObject(hRect, sizeof(rectbit), &rectbit);*/
-
     switch (message)                  /* handle the messages */
     {
-
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -184,7 +175,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
                 //if(xMouse > 20 && xMouse < 410 && yMouse > 50 && yMouse <500)
                 //{
-                   MessageBoxA(NULL,str, "wada", MB_OK | MB_ICONINFORMATION);
+                   MessageBoxA(NULL,str, "Message", MB_OK | MB_ICONINFORMATION);
                 //}
                 }
                 break;

@@ -35,7 +35,7 @@ Collaboration. Complex application.
     	- initialize the _Readme_ file 		
     	- create custom _Icon_ and _menu_ for application
       - import bitmap files to apllication
-      - create  _static buttons_ - title and story
+      - create the title and the story
       - clean up and make the code visible
 
 * Make it useful (you may ask me to evaluate usefulness of your application idea) **(0-3 pt)**
