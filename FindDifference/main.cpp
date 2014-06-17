@@ -1,13 +1,14 @@
 #include <windows.h>
 #include "resource.h"
 
-<<<<<<< HEAD
+
 
 static int iSysWidth;
 static int iSysHeight;
-=======
+HINSTANCE hIns;
+
 #define IDB_TOOLS_GROUP 100
->>>>>>> 01a15ef7a4713d316602210f1c207f0744f117e5
+
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -89,12 +90,12 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-    static HWND check1,chech2,check3,check4,check5;
+    static HWND check1,chech2,check3,check4,check5,hwndToolsGroup;
 
 
     switch (message)                  /* handle the messages */
     {
-<<<<<<< HEAD
+
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -116,7 +117,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
                 }
         break;
-=======
+
             case WM_CREATE:
             hwndToolsGroup = CreateWindowEx(
                 0,
@@ -134,8 +135,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             check1 = CreateWindowEx(
                 0,
                 "Button",
-                "Pencil",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check1",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 15,
                 120, 20,
                 hwndToolsGroup,
@@ -148,8 +149,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             check2 = CreateWindowEx(
                 0,
                 "Button",
-                "Ellipse",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check2",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 35,
                 120, 20,
                 hwndToolsGroup,
@@ -158,11 +159,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 NULL);
 
             // Rectangle tool
-            hwndRectangleTool = CreateWindowEx(
+            check3 = CreateWindowEx(
                 0,
                 "Button",
-                "Rectangle",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check3",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 55,
                 120, 20,
                 hwndToolsGroup,
@@ -171,11 +172,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 NULL);
 
             // Line tool
-            hwndLineTool = CreateWindowEx(
+            check4 = CreateWindowEx(
                 0,
                 "Button",
-                "Line",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check4",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 75,
                 120, 20,
                 hwndToolsGroup,
@@ -183,12 +184,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hInst,
                 NULL);
 
-            // Bezier tool
-            hwndBezierTool = CreateWindowEx(
+
+            check5 = CreateWindowEx(
                 0,
                 "Button",
-                "Bezier",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                "check5",
+                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
                 10, 95,
                 120, 20,
                 hwndToolsGroup,
@@ -196,20 +197,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hInst,
                 NULL);
 
-            // Eraser tool
-            hwndEraserTool = CreateWindowEx(
-                0,
-                "Button",
-                "Eraser",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
-                10, 115,
-                120, 20,
-                hwndToolsGroup,
-                (HMENU)IDB_ERASER_TOOL,
-                hInst,
-                NULL);
+           break;
 
->>>>>>> 01a15ef7a4713d316602210f1c207f0744f117e5
+
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
