@@ -1,13 +1,12 @@
 #include <windows.h>
 #include "resource.h"
-
-<<<<<<< HEAD
+#include <windowsx.h>
 
 static int iSysWidth;
 static int iSysHeight;
-=======
+
 #define IDB_TOOLS_GROUP 100
->>>>>>> 01a15ef7a4713d316602210f1c207f0744f117e5
+
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -91,10 +90,14 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
     static HWND check1,chech2,check3,check4,check5;
 
+    //Static variables for mouse Coordinates
+    static int xMouse, yMouse;
+	xMouse = GET_X_LPARAM(lParam);
+	yMouse = GET_Y_LPARAM(lParam);
 
     switch (message)                  /* handle the messages */
     {
-<<<<<<< HEAD
+
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -116,9 +119,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
                 }
         break;
-=======
+
             case WM_CREATE:
-            hwndToolsGroup = CreateWindowEx(
+            /*hwndToolsGroup = CreateWindowEx(
                 0,
                 "Button",
                 "Tools",
@@ -208,8 +211,25 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 (HMENU)IDB_ERASER_TOOL,
                 hInst,
                 NULL);
+*/
+        break;
 
->>>>>>> 01a15ef7a4713d316602210f1c207f0744f117e5
+            //Work with LButton
+            case WM_LBUTTONDOWN:
+                {
+
+                    char str [256];
+                    POINT pt;
+                    pt.x = LOWORD(lParam);
+                    pt.y = HIWORD(lParam);
+                    wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
+                //if(xMouse > 20 && xMouse < 410 && yMouse > 50 && yMouse <500)
+                //{
+                   MessageBoxA(NULL,str, "wada", MB_OK | MB_ICONINFORMATION);
+                //}
+                }
+                break;
+
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
