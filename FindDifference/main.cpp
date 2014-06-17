@@ -1,9 +1,13 @@
 #include <windows.h>
 #include "resource.h"
 
+<<<<<<< HEAD
 
 static int iSysWidth;
 static int iSysHeight;
+=======
+#define IDB_TOOLS_GROUP 100
+>>>>>>> 01a15ef7a4713d316602210f1c207f0744f117e5
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -84,8 +88,13 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+
+    static HWND check1,chech2,check3,check4,check5;
+
+
     switch (message)                  /* handle the messages */
     {
+<<<<<<< HEAD
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -107,6 +116,100 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
                 }
         break;
+=======
+            case WM_CREATE:
+            hwndToolsGroup = CreateWindowEx(
+                0,
+                "Button",
+                "Tools",
+                WS_VISIBLE | WS_CHILD | BS_GROUPBOX,
+                15, 10,
+                140, 140,
+                hwnd,
+                (HMENU)IDB_TOOLS_GROUP,
+                hInst,
+                NULL);
+
+            // Pen tool
+            hwndPencilTool = CreateWindowEx(
+                0,
+                "Button",
+                "Pencil",
+                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                10, 15,
+                120, 20,
+                hwndToolsGroup,
+                (HMENU)IDB_PENCIL_TOOL,
+                hInst,
+                NULL);
+            Button_SetCheck(hwndPencilTool, BST_CHECKED);
+
+            // Ellipse tool
+            hwndEllipseTool = CreateWindowEx(
+                0,
+                "Button",
+                "Ellipse",
+                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                10, 35,
+                120, 20,
+                hwndToolsGroup,
+                (HMENU)IDB_ELLIPSE_TOOL,
+                hInst,
+                NULL);
+
+            // Rectangle tool
+            hwndRectangleTool = CreateWindowEx(
+                0,
+                "Button",
+                "Rectangle",
+                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                10, 55,
+                120, 20,
+                hwndToolsGroup,
+                (HMENU)IDB_RECTANGLE_TOOL,
+                hInst,
+                NULL);
+
+            // Line tool
+            hwndLineTool = CreateWindowEx(
+                0,
+                "Button",
+                "Line",
+                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                10, 75,
+                120, 20,
+                hwndToolsGroup,
+                (HMENU)IDB_LINE_TOOL,
+                hInst,
+                NULL);
+
+            // Bezier tool
+            hwndBezierTool = CreateWindowEx(
+                0,
+                "Button",
+                "Bezier",
+                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                10, 95,
+                120, 20,
+                hwndToolsGroup,
+                (HMENU)IDB_ERASER_TOOL,
+                hInst,
+                NULL);
+
+            // Eraser tool
+            hwndEraserTool = CreateWindowEx(
+                0,
+                "Button",
+                "Eraser",
+                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
+                10, 115,
+                120, 20,
+                hwndToolsGroup,
+                (HMENU)IDB_ERASER_TOOL,
+                hInst,
+                NULL);
+
+>>>>>>> 01a15ef7a4713d316602210f1c207f0744f117e5
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
