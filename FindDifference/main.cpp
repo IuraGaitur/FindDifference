@@ -238,6 +238,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             case WM_LBUTTONDOWN:
                 {
 
+                    //if(xMouse >)
                     char str [256];
                     POINT pt;
                     pt.x = LOWORD(lParam);
