@@ -1,6 +1,10 @@
 #include <windows.h>
 #include "resource.h"
 
+
+static int iSysWidth;
+static int iSysHeight;
+
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
 
@@ -15,6 +19,12 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     HWND hwnd;               /* This is the handle for our window */
     MSG messages;            /* Here messages to the application are saved */
     WNDCLASSEX wincl;        /* Data structure for the windowclass */
+
+    //Getting width of the screen
+    iSysWidth = GetSystemMetrics(SM_CXSCREEN);
+
+    //Getting Height of the screen
+    iSysHeight = GetSystemMetrics(SM_CYSCREEN);
 
     /* The Window structure */
     wincl.hInstance = hThisInstance;
@@ -42,9 +52,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
            0,                   /* Extended possibilites for variation */
            szClassName,         /* Classname */
            "Code::Blocks Template Windows App",       /* Title Text */
-           WS_OVERLAPPEDWINDOW, /* default window */
-           CW_USEDEFAULT,       /* Windows decides the position */
-           CW_USEDEFAULT,       /* where the window ends up on the screen */
+           WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX, /* default window */
+           iSysWidth/4,       /* Windows decides the position */
+           iSysHeight/25,       /* where the window ends up on the screen */
            750,                 /* The programs width */
            700,                 /* and height in pixels */
            HWND_DESKTOP,        /* The window is a child-window to desktop */
@@ -76,6 +86,27 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 {
     switch (message)                  /* handle the messages */
     {
+        case WM_GETMINMAXINFO:
+            {
+                LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
+                pInfo -> ptMaxTrackSize.x = 750;
+                pInfo -> ptMaxTrackSize.y = 700;
+
+                pInfo -> ptMinTrackSize.x= 750;
+                pInfo -> ptMinTrackSize.y = 700;
+            }
+        break;
+
+        case WM_COMMAND:
+           switch(LOWORD(wParam))
+                {
+                    //Delete Coammand
+                    case IDI_EXIT:
+                        PostQuitMessage (0);
+                    break;
+
+                }
+        break;
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
