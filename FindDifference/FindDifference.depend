@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
 154051336 <<<<< HEAD
 
-1403005168 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
+1403006420 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
 	<windowsx.h>
@@ -21,9 +21,9 @@
 
 1403001969 8aaf70f695351f0c73ec4fba10ef479d42701
 
-1403002492 d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\resource.h
+1403006420 d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\resource.h
 
-1403005168 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\resource.rc
+1403006420 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\resource.rc
 	"resource.h"
 	"afxres.h"
 
