@@ -1,4 +1,4 @@
 *.exe
-FindDifference.depend
+FindDifference/FindDifference.depend
 *.o
-FindDifference.layout
+FindDifference/FindDifference.layout
