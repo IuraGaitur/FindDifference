@@ -92,7 +92,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static HWND check1,check2,check3,check4,check5,hwndToolsGroup;
-    static HWND titleButton, storyButton;
+
+    HWND checks[8];
+    int x = 400;
     static HDC hdcCat1, hdcCat2, hdcGuffy1, hdcGuffy2;
 
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
@@ -100,10 +102,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     static HBITMAP hbmpCat2 = NULL;
     static HBITMAP hbmpGuffy1 = NULL;
     static HBITMAP hbmpGuffy2 = NULL;
+    static HFONT font_forte, text_font;
     HDC hDC;
     PAINTSTRUCT Ps;
     HDC hdc = GetDC(hwnd);
     HBRUSH hbrush;
+    RECT rect;
 
     // load bitmaps
     hbmpCat1 = (HBITMAP)LoadImage(hInst, "Cat1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -158,98 +162,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
             case WM_CREATE:
 
-                titleButton = CreateWindow(TEXT("static"), TEXT("Find the Difference"),
-                            WS_VISIBLE | WS_CHILD ,
-                            37, 40,
-                            400, 20,
-                            hwnd,
-                            (HMENU) BUTTON_STATIC,
-                            NULL, NULL);
-
-
-            hwndToolsGroup = CreateWindowEx(
-                0,
-                "Button",
-                "Tools",
-                WS_VISIBLE | WS_CHILD | BS_GROUPBOX,
-                15, 10,
-                140, 140,
-                hwnd,
-                (HMENU)IDB_TOOLS_GROUP,
-                hInst,
-                NULL);
-
-
-            check1 = CreateWindowEx(
-                0,
-                "Button",
-                "check1",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 15,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check2 = CreateWindowEx(
-                0,
-                "Button",
-                "check2",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 35,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check3 = CreateWindowEx(
-                0,
-                "Button",
-                "check3",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 55,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check4 = CreateWindowEx(
-                0,
-                "Button",
-                "check4",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 75,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check5 = CreateWindowEx(
-                0,
-                "Button",
-                "check5",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 95,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-
-
+                for(int i=0;i<8;i++)
+                {
+                    checks[i] = CreateWindow(TEXT("button"), TEXT(""+i),
+                            WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
+                            x, 500, 15, 12,
+                            hwnd, (HMENU) 1, ((LPCREATESTRUCT)lParam)->hInstance, NULL);
+                    x+=20;
+                }
            break;
-
-
 
             //Work with LButton
             case WM_LBUTTONDOWN:
@@ -283,10 +204,22 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
                     DeleteDC(hdcCat2);
 
+                    GetClientRect(hwnd, &rect);  // retrieves the coordinates of a window's client area
+
+                    // create the title
+                    font_forte   = CreateFont(30, 27.5, 0, 0, FW_DONTCARE, false, false, false,
+                                      DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                                      DEFAULT_QUALITY, FF_DONTCARE, "Forte");
+
+                    text_font  = (HFONT)SelectObject(hdc, font_forte);   // setting new font for text
+                    SetTextColor(hdc, TITLE_COLOR);                     // setting new text color
+                    TextOut( hdc, 115, 20,  "Find the difference", 19);
+
                     EndPaint(hwnd, &Ps);
 
                 }
                 break;
+
         case WM_CTLCOLORSTATIC:
             {
                 //SetTextColor((HDC)wParam,RGB(color_id + 20, 100, 255 - color_id)); // text color

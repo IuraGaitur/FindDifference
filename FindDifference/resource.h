@@ -3,4 +3,4 @@
 #define IDI_MENU 103
 #define IDI_EXIT 104
 #define IDB_TOOLS_GROUP 100
-#define BUTTON_STATIC 5
+#define TITLE_COLOR RGB(201, 65, 266)
