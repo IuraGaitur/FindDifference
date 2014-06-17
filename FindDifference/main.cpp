@@ -217,7 +217,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     if(arr[i].left < xMouse && xMouse < arr[i].right && arr[i].top < yMouse && yMouse < arr[i].bottom )
                     {
                         PlaySound("Level.wav", NULL, SND_ASYNC);
-                      //  MessageBoxA(NULL,"sdsds", "wada", MB_OK | MB_ICONINFORMATION);
+                        //MessageBoxA(NULL,"sdsds", "wada", MB_OK | MB_ICONINFORMATION);
+                        DrawEdge(hdc, &arr[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
                         SendMessage(checks[i], BM_SETCHECK, BST_CHECKED, 0);
                         break;
                     }
