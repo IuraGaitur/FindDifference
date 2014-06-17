@@ -95,8 +95,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hInst,
                 NULL);
 
-            // Pen tool
-            hwndPencilTool = CreateWindowEx(
+
+            check1 = CreateWindowEx(
                 0,
                 "Button",
                 "Pencil",
@@ -109,8 +109,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 NULL);
             Button_SetCheck(hwndPencilTool, BST_CHECKED);
 
-            // Ellipse tool
-            hwndEllipseTool = CreateWindowEx(
+
+            check2 = CreateWindowEx(
                 0,
                 "Button",
                 "Ellipse",
