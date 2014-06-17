@@ -17,19 +17,22 @@ Collaboration. Complex application.
 * Work on this project in a team of 2-4 **(2 pt)**
   * Divide tasks and describe them in readme (for each task indicate who is responsible for it) **(1 pt)**
 
-	* **Gaitur** Iurie has the responsibility to:  
-		- create the repository on _github_
-		- find a bitmap imagine which will be used 
-		- create _checkboxes_
+	   * **Gaitur** Iurie has the responsibility to:  
+		  - create the repository on _github_
+		  - find a bitmap imagine which will be used 
+		  - create _checkboxes_
 
   	* **Barbaros Nicolae** has the responsibility to:
   		- create the sketch for aplication
+      - dissable windows resize options
+      - get the screen coordonates
+
 
     * **Leahu Luminita** has the responsibility to:
     	- initialize the project and push it on github
     	- initialize the _Readme_ file 		
     	- create custom _Icon_ and _menu_ for application
-    	- dissable windows resize options
+      - import bitmap files to apllication
 
 * Make it useful (you may ask me to evaluate usefulness of your application idea) **(0-3 pt)**
 * First create a sketch, then work on code **(1 pt)** _(commit sketches early)_
