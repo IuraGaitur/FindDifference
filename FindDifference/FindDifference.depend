@@ -8,8 +8,10 @@
 
 1403001337 >
 
-1353754660 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
+1403005684 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
 	<windows.h>
+	"resource.h"
+	<windowsx.h>
 
 1403004379 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.rc
 	"resource.h"
@@ -31,7 +33,7 @@
 
 1402998719 d:\university\utm\semestrul iv\windows_programming\lab#5\finddifference\finddifference\resource.h
 
-1403002620 source:d:\university\utm\semestrul iv\windows_programming\lab#5\finddifference\finddifference\main.cpp
+1403002968 source:d:\university\utm\semestrul iv\windows_programming\lab#5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
 	<windowsx.h>

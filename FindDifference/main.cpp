@@ -6,10 +6,14 @@
 
 static int iSysWidth;
 static int iSysHeight;
+
 HINSTANCE hInst;
 
 #define IDB_TOOLS_GROUP 100
 
+
+
+HINSTANCE hInstance;
 
 
 /*  Declare Windows procedure  */
@@ -114,7 +118,6 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     hbmpCat2 = (HBITMAP)LoadImage(hInst, "Cat2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpCat2, sizeof(bitmapCat2), &bitmapCat2);
 
-
     //Static variables for mouse Coordinates
     static int xMouse, yMouse;
 	xMouse = GET_X_LPARAM(lParam);
@@ -143,7 +146,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         case WM_COMMAND:
            switch(LOWORD(wParam))
                 {
-                    //Delete Coammand
+                    //Exit Coammand
                     case IDI_EXIT:
                         PostQuitMessage (0);
                     break;
@@ -231,7 +234,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
 
 
+
            break;
+
 
 
             //Work with LButton
@@ -273,7 +278,10 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
 
 
+
                 break;
+
+      break;
 
 
         case WM_DESTROY:
@@ -282,6 +290,5 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         default:                      /* for messages that we don't deal with */
             return DefWindowProc (hwnd, message, wParam, lParam);
     }
-
     return 0;
 }
