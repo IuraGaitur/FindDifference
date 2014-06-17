@@ -20,6 +20,7 @@ Collaboration. Complex application.
 	* **Gaitur** Iurie has the responsibility to:  
 		- create the repository on _github_
 		- find a bitmap imagine which will be used 
+		- create _checkboxes_
 
   	* **Barbaros Nicolae** has the responsibility to:
   		- create the sketch for aplication
