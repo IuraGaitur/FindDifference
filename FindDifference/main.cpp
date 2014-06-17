@@ -1,8 +1,6 @@
 #include <windows.h>
 #include "resource.h"
 
-<<<<<<< HEAD
-
 
 static int iSysWidth;
 static int iSysHeight;
@@ -13,8 +11,6 @@ HINSTANCE hIns;
 static int iSysWidth;
 static int iSysHeight;
 HINSTANCE hInstance;
-
->>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
 
 
 /*  Declare Windows procedure  */
@@ -97,9 +93,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 
-<<<<<<< HEAD
+
     static HWND check1,chech2,check3,check4,check5,hwndToolsGroup;
-=======
+
     static HWND check1,chech2,check3,check4,check5;
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
     static HBITMAP hbmpCat1 = NULL ;
@@ -113,7 +109,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
     hbmpCat2 = (HBITMAP)LoadImage(hInstance, "Cat2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpCat2, sizeof(bitmapCat2), &bitmapCat2);
->>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
+
 
     /*hEllipse = (HBITMAP)LoadImage(hInstance, "ellipse.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hEllipse, sizeof(ellipsebit), &ellipsebit);
@@ -123,10 +119,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
     switch (message)                  /* handle the messages */
     {
-<<<<<<< HEAD
 
-=======
->>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
+
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -150,7 +144,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         break;
 
             case WM_CREATE:
-            /*hwndToolsGroup = CreateWindowEx(
+            hwndToolsGroup = CreateWindowEx(
                 0,
                 "Button",
                 "Tools",
@@ -228,23 +222,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hInst,
                 NULL);
 
-<<<<<<< HEAD
-           break;
 
-=======
-            // Eraser tool
-            hwndEraserTool = CreateWindowEx(
-                0,
-                "Button",
-                "Eraser",
-                WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON,
-                10, 115,
-                120, 20,
-                hwndToolsGroup,
-                (HMENU)IDB_ERASER_TOOL,
-                hInst,
-                NULL);*/
-                break;
+           break;
 
             case WM_PAINT:
                 {
@@ -273,7 +252,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     HBRUSH hBrush;
 
                 }
->>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
+
 
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
