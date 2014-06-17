@@ -27,6 +27,8 @@ Collaboration. Complex application.
     * **Leahu Luminita** has the responsibility to:
     	- initialize the project and push it on github
     	- initialize the _Readme_ file 		
+    	- create custom _Icon_ and _menu_ for application
+    	- dissable windows resize options
 
 * Make it useful (you may ask me to evaluate usefulness of your application idea) **(0-3 pt)**
 * First create a sketch, then work on code **(1 pt)** _(commit sketches early)_
