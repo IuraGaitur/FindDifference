@@ -1,6 +1,5 @@
 #include <windows.h>
 #include "resource.h"
-
 #include <windowsx.h>
 
 
@@ -8,10 +7,6 @@ static int iSysWidth;
 static int iSysHeight;
 
 HINSTANCE hInst;
-
-#define IDB_TOOLS_GROUP 100
-
-
 
 HINSTANCE hInstance;
 
@@ -96,10 +91,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-
-
-
     static HWND check1,check2,check3,check4,check5,hwndToolsGroup;
+    static HWND titleButton, storyButton;
     static HDC hdcCat1, hdcCat2, hdcGuffy1, hdcGuffy2;
 
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
@@ -110,6 +103,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     HDC hDC;
     PAINTSTRUCT Ps;
     HDC hdc = GetDC(hwnd);
+    HBRUSH hbrush;
 
     // load bitmaps
     hbmpCat1 = (HBITMAP)LoadImage(hInst, "Cat1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -163,6 +157,16 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         break;
 
             case WM_CREATE:
+
+                titleButton = CreateWindow(TEXT("static"), TEXT("Find the Difference"),
+                            WS_VISIBLE | WS_CHILD ,
+                            37, 40,
+                            400, 20,
+                            hwnd,
+                            (HMENU) BUTTON_STATIC,
+                            NULL, NULL);
+
+
             hwndToolsGroup = CreateWindowEx(
                 0,
                 "Button",
@@ -282,15 +286,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     EndPaint(hwnd, &Ps);
 
                 }
-
-
-
-
-
-
                 break;
-
-      break;
+        case WM_CTLCOLORSTATIC:
+            {
+                //SetTextColor((HDC)wParam,RGB(color_id + 20, 100, 255 - color_id)); // text color
+                SetBkMode((HDC)wParam,TRANSPARENT);                                // transparent background
+                hbrush=(HBRUSH)GetStockObject(NULL_BRUSH);                         // handle to brush, no background color
+                return(LRESULT) hbrush;
+            }
+        break;
 
 
         case WM_DESTROY:
