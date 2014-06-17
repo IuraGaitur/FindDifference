@@ -99,7 +99,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
 
 
-    static HWND check1,check2,check3,check4,check5,hwndToolsGroup;
+    HWND checks[8];
+    int x = 400;
     static HDC hdcCat1, hdcCat2, hdcGuffy1, hdcGuffy2;
 
     static BITMAP bitmapCat1, bitmapCat2, bitmapGuffy1, bitmapGuffy2;
@@ -155,89 +156,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         break;
 
             case WM_CREATE:
-            hwndToolsGroup = CreateWindowEx(
-                0,
-                "Button",
-                "Tools",
-                WS_VISIBLE | WS_CHILD | BS_GROUPBOX,
-                15, 10,
-                140, 140,
-                hwnd,
-                (HMENU)IDB_TOOLS_GROUP,
-                hInst,
-                NULL);
-
-
-            check1 = CreateWindowEx(
-                0,
-                "Button",
-                "check1",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 15,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check2 = CreateWindowEx(
-                0,
-                "Button",
-                "check2",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 35,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check3 = CreateWindowEx(
-                0,
-                "Button",
-                "check3",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 55,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check4 = CreateWindowEx(
-                0,
-                "Button",
-                "check4",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 75,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-            check5 = CreateWindowEx(
-                0,
-                "Button",
-                "check5",
-                WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-                10, 95,
-                120, 20,
-                hwndToolsGroup,
-                NULL,
-                hInst,
-                NULL);
-
-
-
-
+                for(int i=0;i<8;i++)
+                {
+                    checks[i] = CreateWindow(TEXT("button"), TEXT(""+i),
+                            WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
+                            x, 500, 15, 12,
+                            hwnd, (HMENU) 1, ((LPCREATESTRUCT)lParam)->hInstance, NULL);
+                    x+=20;
+                }
            break;
-
-
 
             //Work with LButton
             case WM_LBUTTONDOWN:
