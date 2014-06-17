@@ -9,6 +9,7 @@ static int iSysHeight;
 
 HINSTANCE hInst;
 
+
 #define IDB_TOOLS_GROUP 100
 
 
@@ -123,6 +124,10 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 	xMouse = GET_X_LPARAM(lParam);
 	yMouse = GET_Y_LPARAM(lParam);
 
+    RECT arr[1];
+
+    RECT rect1 = {508,122,569,165};
+    arr[0] = rect1;
     /*hEllipse = (HBITMAP)LoadImage(hInstance, "ellipse.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hEllipse, sizeof(ellipsebit), &ellipsebit);
 
@@ -243,16 +248,30 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             case WM_LBUTTONDOWN:
                 {
 
-                    //if(xMouse >)
-                    char str [256];
+                //Coordonates of first difference (Hair of Motan);
+                /*if (xMouse > 508 && xMouse < 569 && yMouse > 122 && yMouse < 165 )
+                    {
+                        MessageBoxA(NULL,"aleluia", "wada", MB_OK | MB_ICONINFORMATION);
+                    }*/
+
+                for (int i = 0; i < sizeof(arr)/sizeof(RECT); i++)
+                {
+                    if(arr[i].left < xMouse < arr[i].right && arr[i].top < yMouse < arr[i].bottom )
+                    {
+                        MessageBoxA(NULL,"sdsds", "wada", MB_OK | MB_ICONINFORMATION);
+                        break;
+                    }
+                }
+
+
+                        char str [256];
                     POINT pt;
                     pt.x = LOWORD(lParam);
                     pt.y = HIWORD(lParam);
                     wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
-                //if(xMouse > 20 && xMouse < 410 && yMouse > 50 && yMouse <500)
-                //{
-                   MessageBoxA(NULL,str, "wada", MB_OK | MB_ICONINFORMATION);
-                //}
+                      MessageBoxA(NULL,str, "wada", MB_OK | MB_ICONINFORMATION);
+
+
                 }
                 break;
 
