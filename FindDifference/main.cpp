@@ -1,10 +1,19 @@
 #include <windows.h>
 #include "resource.h"
+<<<<<<< HEAD
+#include <windowsx.h>
+
+static int iSysWidth;
+static int iSysHeight;
+
+#define IDB_TOOLS_GROUP 100
+=======
 
 static int iSysWidth;
 static int iSysHeight;
 HINSTANCE hInstance;
 
+>>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
 
 
 /*  Declare Windows procedure  */
@@ -105,6 +114,16 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     hbmpCat2 = (HBITMAP)LoadImage(hInstance, "Cat2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpCat2, sizeof(bitmapCat2), &bitmapCat2);
 
+<<<<<<< HEAD
+    //Static variables for mouse Coordinates
+    static int xMouse, yMouse;
+	xMouse = GET_X_LPARAM(lParam);
+	yMouse = GET_Y_LPARAM(lParam);
+
+    switch (message)                  /* handle the messages */
+    {
+
+=======
     /*hEllipse = (HBITMAP)LoadImage(hInstance, "ellipse.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hEllipse, sizeof(ellipsebit), &ellipsebit);
 
@@ -113,6 +132,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
     switch (message)                  /* handle the messages */
     {
+>>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
         case WM_GETMINMAXINFO:
             {
                 LPMINMAXINFO pInfo = (LPMINMAXINFO)lParam;
@@ -225,6 +245,27 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 hwndToolsGroup,
                 (HMENU)IDB_ERASER_TOOL,
                 hInst,
+<<<<<<< HEAD
+                NULL);
+*/
+        break;
+
+            //Work with LButton
+            case WM_LBUTTONDOWN:
+                {
+
+                    char str [256];
+                    POINT pt;
+                    pt.x = LOWORD(lParam);
+                    pt.y = HIWORD(lParam);
+                    wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
+                //if(xMouse > 20 && xMouse < 410 && yMouse > 50 && yMouse <500)
+                //{
+                   MessageBoxA(NULL,str, "wada", MB_OK | MB_ICONINFORMATION);
+                //}
+                }
+                break;
+=======
                 NULL);*/
                 break;
 
@@ -245,7 +286,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     EndPaint(hwnd, &Ps);
 
                 }
+<<<<<<< HEAD
                 break;
+=======
+>>>>>>> 7ec7cbabffe3c8c7262263935e7cd970065b7448
+>>>>>>> ecb8647b1650d2ec1f262bab094c91a61ff62804
 
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
