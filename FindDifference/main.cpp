@@ -248,23 +248,29 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             {
                 if(diff[i].left < xMouse && xMouse < diff[i].right && diff[i].top < yMouse && yMouse < diff[i].bottom )
                 {
+                    if(coeficient == 3)
                     PlaySound("Meow.wav", NULL, SND_ASYNC);
+                    if(coeficient == 1.5)
+                    PlaySound("goofy.wav", NULL, SND_ASYNC);
+                    if(coeficient == 1)
+                    PlaySound("Meow.wav", NULL, SND_ASYNC);
+
                     DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
                     CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
                     nr_differences ++;
                     CheckDlgButton(hwnd, IDs[i - + (random * 10)], BST_CHECKED);
-                    MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
+                   // MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
 
-                    if (nr_differences == 10)
-                    {
-                        PlaySound("Level.wav", NULL, SND_ASYNC);
-                        MessageBoxA(NULL,"You win! Go to File->New game", "Congrats", MB_OK | MB_ICONINFORMATION);
-                        //break;
-                    }
+                        if (nr_differences == 10)
+                        {
+                            PlaySound("Level.wav", NULL, SND_ASYNC);
+                            MessageBoxA(NULL,"You won! Go to File->New game", "Congrats", MB_OK | MB_ICONINFORMATION);
+                        }
 
                 }
-                  //PlaySound("Mistake.wav", NULL, SND_ASYNC);
-
+                else {
+                  // PlaySound("FailSound.wav", NULL, SND_ASYNC);
+                    }
             }
 
         }
