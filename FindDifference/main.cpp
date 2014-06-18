@@ -16,6 +16,7 @@ HINSTANCE hInst;
 
 char* Images[3] = {"Cat","Guffy","Lupu"};
 int random = 0;
+float coeficient = 3;
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -112,10 +113,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     HDC hdc = GetDC(hwnd);
     HBRUSH hbrush;
     static RECT diff[30];
-
-    printf("%d",random);
     char* current_img = Images[random];
-
+     //printf ("random %d",random);
     char str[15];
     sprintf(str,"%s1.bmp",current_img);
     // load bitmaps
@@ -220,21 +219,21 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     //Work with LButton
     case WM_LBUTTONDOWN:
         {
-            for (int i = 0 + (random * 10); i < sizeof(diff)/sizeof(RECT); i++)
+            if(random == 0)
+                coeficient = 3 ;
+            if(random == 1)
+                coeficient = 1.5;
+            if(random == 2)
+                coeficient = 1;
+            for (int i = 0+ random * 10; i < (sizeof(diff)/sizeof(diff[0]))/coeficient  ; i++)
             {
                 if(diff[i].left < xMouse && xMouse < diff[i].right && diff[i].top < yMouse && yMouse < diff[i].bottom )
                 {
-                    PlaySound("Level.wav", NULL, SND_ASYNC);
                     DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
-                    CheckDlgButton(hwnd, IDs[i - + (random * 10)], BST_CHECKED);
+                    CheckDlgButton(hwnd, IDs[i - (random * 10)], BST_CHECKED);
                     MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
-
                 }
-
             }
-
-
-
         }
     break;
 
