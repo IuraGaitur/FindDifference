@@ -26,7 +26,8 @@ Collaboration. Complex application.
   	* **Barbaros Nicolae** has the responsibility to:
   		- create the sketch for aplication
       - dissable window resize option
-      - get the screen coordonates
+      - get screen coordonates
+      - get mouse coordonates
       - implement the algorithm of finding the differences
       - add SFX
 
@@ -48,5 +49,15 @@ Collaboration. Complex application.
 * First create a sketch, then work on code **(1 pt)** _(commit sketches early)_
 
 	![screen](https://raw.githubusercontent.com/IuraGaitur/FindDifference/master/Images/Screenshot_2.png)
+	
+## Conclusion
+
+![screen1](https://raw.githubusercontent.com/IuraGaitur/FindDifference/master/FindDifference/Screenshot_1.png)
+	
+![screen2](https://raw.githubusercontent.com/IuraGaitur/FindDifference/master/FindDifference/Screenshot_2.png)
+	
+![screen3](https://raw.githubusercontent.com/IuraGaitur/FindDifference/master/FindDifference/Screenshot_3.png)
+
+[How the game works, Video ](https://www.youtube.com/watch?v=6hHJA4RC-S8&feature=youtu.be)
 
 
