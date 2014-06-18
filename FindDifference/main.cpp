@@ -15,7 +15,7 @@ static int iSysHeight;
 HINSTANCE hInst;
 
 char* Images[3] = {"Cat","Guffy","Lupu"};
-int random = -1;
+int random = 0;
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -143,6 +143,30 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     diff[8] = {540, 390, 550, 400 };//flowerbottom
     diff[9] = {450, 310, 470, 330};//left
 
+    diff[10] = {467, 155 , 489, 190 }; //acc
+    diff[11] =  {503, 175,522, 192 } ;// paplivoc
+    diff[12] = {521,123, 558, 155};// circioc
+    diff[13] = {578, 140, 600, 163 }; //circioc dreapta
+    diff[14] = {630,290, 653, 312}; //mina
+    diff[15] = {471, 444,495, 464 };//ass
+    diff[16] = {429, 292, 468, 325};//mp3
+    diff[17] = {464, 265,481, 279 };//sunnglass
+    diff[18] = {478, 305,494, 316 };//bunghi linga mp3
+    diff[19] = {585, 400, 608, 419}; //bumb picior dreapta
+
+    diff[20] ={416, 100, 494, 128};//nour stinga
+    diff[21] ={619, 124, 638, 137}; //nour dreapta
+    diff[22] ={678, 109, 700, 124 }; //sun
+    diff[23] ={534, 207, 565, 245}; //wolf hands
+    diff[24] ={637, 202,655, 215}; //barba
+    diff[25] ={595, 405, 615, 417}; //picior Wolf
+    diff[26] ={514,399,531,409 };//picior fetita
+    diff[27] ={511,344, 526, 360 }; //fata jacketa
+    diff[28] ={400,325,455,353};//deal
+    diff[29] ={425,351,446,368};//floare
+
+
+
     switch (message)                  /* handle the messages */
     {
     case WM_GETMINMAXINFO:
@@ -196,13 +220,13 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     //Work with LButton
     case WM_LBUTTONDOWN:
         {
-            for (int i = 0; i < sizeof(diff)/sizeof(RECT); i++)
+            for (int i = 0 + (random * 10); i < sizeof(diff)/sizeof(RECT); i++)
             {
                 if(diff[i].left < xMouse && xMouse < diff[i].right && diff[i].top < yMouse && yMouse < diff[i].bottom )
                 {
                     PlaySound("Level.wav", NULL, SND_ASYNC);
                     DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
-                    CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
+                    CheckDlgButton(hwnd, IDs[i - + (random * 10)], BST_CHECKED);
                     MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
 
                 }
