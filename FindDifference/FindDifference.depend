@@ -1,21 +1,27 @@
 # depslib dependency file v1.0
 154051336 <<<<< HEAD
 
-1403073177 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
+1403102429 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
 	<iostream>
 	<windowsx.h>
 	<mmsystem.h>
+	<string>
+	<stdio.h>
+	<time.h>
 
 1403001337 >
 
-1403089294 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
+1403105182 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
 	<iostream>
 	<windowsx.h>
 	<mmsystem.h>
+	<string>
+	<stdio.h>
+	<time.h>
 
 1403026052 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.rc
 	"resource.h"
