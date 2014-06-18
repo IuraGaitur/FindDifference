@@ -250,6 +250,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             SetTextColor(hdc, TITLE_COLOR);                     // setting new text color
             TextOut( hdc, 115, 20,  "Find the difference", 19);
 
+            DeleteObject(font_forte);
+            DeleteObject(text_font);
+
             EndPaint(hwnd, &Ps);
 
         }
