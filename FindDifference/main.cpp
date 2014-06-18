@@ -3,6 +3,9 @@
 #include <iostream>
 #include <windowsx.h>
 #include <mmsystem.h>
+#include <string>
+#include <stdio.h>
+#include <time.h>
 #pragma comment(lib,"Winmm.lib")
 
 using namespace std;
@@ -11,8 +14,12 @@ static int iSysWidth;
 static int iSysHeight;
 HINSTANCE hInst;
 
+char* Images[4] = {"Cat","Guffy","Lupu","Ass"};
+
+
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
+int GetRandom(int n);
 
 /*  Make the class name into a global variable  */
 char szClassName[ ] = "CodeBlocksWindowsApp";
@@ -95,8 +102,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     static HDC hdcCat1, hdcCat2;
 
     static BITMAP bitmapCat1, bitmapCat2;
-    static HBITMAP hbmpCat1 = NULL ;
-    static HBITMAP hbmpCat2 = NULL;
+    static HBITMAP hbmpImg1 = NULL ;
+    static HBITMAP hbmpImg2 = NULL;
 
     static HFONT font_forte, text_font;
     static RECT area = {400, 80, 707, 470};
@@ -105,13 +112,19 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     HDC hdc = GetDC(hwnd);
     HBRUSH hbrush;
     RECT rect;
+    int random = GetRandom(4);
+    printf("%d",random);
+    char* current_img = Images[random];
 
+    char str[15];
+    sprintf(str,"%s1.bmp",current_img);
     // load bitmaps
-    hbmpCat1 = (HBITMAP)LoadImage(hInst, "Cat1.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-    GetObject(hbmpCat1, sizeof(bitmapCat1), &bitmapCat1);
+    hbmpImg1 = (HBITMAP)LoadImage(hInst, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    GetObject(hbmpImg1, sizeof(bitmapCat1), &bitmapCat1);
 
-    hbmpCat2 = (HBITMAP)LoadImage(hInst, "Cat2.bmp", IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
-    GetObject(hbmpCat2, sizeof(bitmapCat2), &bitmapCat2);
+    sprintf(str,"%s2.bmp",current_img);
+    hbmpImg2 = (HBITMAP)LoadImage(hInst, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    GetObject(hbmpImg2, sizeof(bitmapCat2), &bitmapCat2);
 
     //Static variables for mouse Coordinates
     static int xMouse, yMouse;
@@ -230,12 +243,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             BeginPaint(hwnd, &Ps);
 
             hdcCat1 = CreateCompatibleDC(hdc);
-            SelectObject(hdcCat1, hbmpCat1);
+            SelectObject(hdcCat1, hbmpImg1);
             BitBlt(hdc, 37, 80, bitmapCat1.bmWidth, bitmapCat1.bmHeight, hdcCat1, 0, 0, SRCCOPY);
             DeleteObject(hdcCat1);
 
             hdcCat2 = CreateCompatibleDC(hdc);
-            SelectObject(hdcCat2, hbmpCat2);
+            SelectObject(hdcCat2, hbmpImg2);
             BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
             DeleteObject(hdcCat2);
 
@@ -279,3 +292,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     }
     return 0;
 }
+
+int GetRandom(int n)
+{
+   srand (time(NULL));
+   return rand()%n;
+
+}
+
+
