@@ -13,18 +13,20 @@
 
 1403001337 >
 
-1403029977 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
+1403115041 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
-	<iostream>
 	<windowsx.h>
 	<mmsystem.h>
+	<string>
+	<stdio.h>
+	<time.h>
 
-1403026052 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.rc
+1403112455 source:d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.rc
 	"resource.h"
 	"afxres.h"
 
-1403029186 d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.h
+1403111484 d:\anul ii\sem ii\wp\lab#5\finddifference\finddifference\resource.h
 
 1403001969 8aaf70f695351f0c73ec4fba10ef479d42701
 

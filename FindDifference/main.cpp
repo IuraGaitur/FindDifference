@@ -1,14 +1,11 @@
 #include <windows.h>
 #include "resource.h"
-#include <iostream>
 #include <windowsx.h>
 #include <mmsystem.h>
 #include <string>
 #include <stdio.h>
 #include <time.h>
 #pragma comment(lib,"Winmm.lib")
-
-using namespace std;
 
 static int iSysWidth;
 static int iSysHeight;
@@ -18,8 +15,12 @@ char* Images[3] = {"Cat","Guffy","Lupu"};
 int random = 0;
 float coeficient = 3;
 
+static int nr_differences = 0;
+
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
+BOOL    CALLBACK   AboutDlgProc  (HWND, UINT, WPARAM, LPARAM);
+
 int GetRandom(int n);
 
 /*  Make the class name into a global variable  */
@@ -107,16 +108,27 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     static HBITMAP hbmpImg2 = NULL;
 
     static HFONT font_forte, text_font;
-    static RECT area = {400, 80, 707, 470};
+    static RECT area     = {400, 80, 707, 470};
+    static RECT all_area = {5, 5, 395, 640};
 
     PAINTSTRUCT Ps;
     HDC hdc = GetDC(hwnd);
     HBRUSH hbrush;
+
+    static RECT cat;
+    static RECT guffy;
+    static RECT wolf;
     static RECT diff[30];
+<<<<<<< HEAD
+=======
+
+    //printf("%d",random);
+>>>>>>> 15089a1260b6f1c9969e379c8125b14593661d7e
     char* current_img = Images[random];
      //printf ("random %d",random);
     char str[15];
     sprintf(str,"%s1.bmp",current_img);
+
     // load bitmaps
     hbmpImg1 = (HBITMAP)LoadImage(hInst, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpImg1, sizeof(bitmapCat1), &bitmapCat1);
@@ -129,6 +141,77 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     static int xMouse, yMouse;
 	xMouse = GET_X_LPARAM(lParam);
 	yMouse = GET_Y_LPARAM(lParam);
+
+    //Array of Rectangles
+    static RECT arr[30];
+
+    //Coordinates of the differences
+    static RECT cat1 = {508,122,569,165};
+    static RECT cat2 = {511,161,568,180};  //sprincene
+    static RECT cat3 = {540, 197, 560, 217 };//ochi
+    static RECT cat4 = {583, 228, 614, 245};//mustata dreapta
+    static RECT cat5 = {645, 328, 685, 348};//coada
+    static RECT cat6 = {586, 292, 630, 327};//fluture
+    static RECT cat7 = {498, 359, 526, 388};//hand
+    static RECT cat8 = {520, 289, 557, 305};//piept
+    static RECT cat9 = {540, 390, 550, 400 };//flowerbottom
+    static RECT cat10 = {450, 310, 470, 330};//left
+
+    static RECT guffy1 = {508,122,569,165};
+    static RECT guffy2 = {511,161,568,180};  //sprincene
+    static RECT guffy3 = {540, 197, 560, 217 };//ochi
+    static RECT guffy4 = {583, 228, 614, 245};//mustata dreapta
+    static RECT guffy5 = {645, 328, 685, 348};//coada
+    static RECT guffy6 = {586, 292, 630, 327};//fluture
+    static RECT guffy7 = {498, 359, 526, 388};//hand
+    static RECT guffy8 = {520, 289, 557, 305};//piept
+    static RECT guffy9 = {540, 390, 550, 400 };//flowerbottom
+    static RECT guffy10 = {450, 310, 470, 330};//left
+
+    static RECT wolf1 = {508,122,569,165};
+    static RECT wolf2 = {511,161,568,180};  //sprincene
+    static RECT wolf3 = {540, 197, 560, 217 };//ochi
+    static RECT wolf4 = {583, 228, 614, 245};//mustata dreapta
+    static RECT wolf5 = {645, 328, 685, 348};//coada
+    static RECT wolf6 = {586, 292, 630, 327};//fluture
+    static RECT wolf7 = {498, 359, 526, 388};//hand
+    static RECT wolf8 = {520, 289, 557, 305};//piept
+    static RECT wolf9 = {540, 390, 550, 400 };//flowerbottom
+    static RECT wolf10 = {450, 310, 470, 330};//left
+
+    //Assigning the values of cat to it's possition in array
+    arr[0] = cat1;
+    arr[1] = cat2;
+    arr[2] = cat3;
+    arr[3] = cat4;
+    arr[4] = cat5;
+    arr[5] = cat6;
+    arr[6] = cat7;
+    arr[7] = cat8;
+    arr[8] = cat9;
+    arr[9] = cat10;
+
+    arr[10] = guffy1;
+    arr[11] = guffy2;
+    arr[12] = guffy3;
+    arr[13] = guffy4;
+    arr[14] = guffy5;
+    arr[15] = guffy6;
+    arr[16] = guffy7;
+    arr[17] = guffy8;
+    arr[18] = guffy9;
+    arr[19] = guffy10;
+
+    arr[20] = wolf1;
+    arr[21] = wolf2;
+    arr[22] = wolf3;
+    arr[23] = wolf4;
+    arr[24] = wolf5;
+    arr[25] = wolf6;
+    arr[26] = wolf7;
+    arr[27] = wolf8;
+    arr[28] = wolf9;
+    arr[29] = wolf10;
 
     //Coordinates of the differences
     diff[0] = {508,122,569,165};
@@ -186,6 +269,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
              case IDI_EXIT:      //Exit Coammand
                 {
                     PostQuitMessage (0);
+                break;
                 }
 
             case IDI_NEW:
@@ -197,6 +281,19 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     {
                         CheckDlgButton(hwnd, IDs[i], BST_UNCHECKED);
                     }
+                break;
+                }
+
+            case IDI_ABOUT:
+                {
+                    DialogBox(hInst, MAKEINTRESOURCE(IDI_DIALOG), hwnd, AboutDlgProc);
+                break;
+                }
+
+            case IDI_RULE:
+                {
+                    DialogBox(hInst, MAKEINTRESOURCE(IDI_DIALOG_RULE), hwnd, AboutDlgProc);
+                break;
                 }
             }
         break;
@@ -229,11 +326,33 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             {
                 if(diff[i].left < xMouse && xMouse < diff[i].right && diff[i].top < yMouse && yMouse < diff[i].bottom )
                 {
+<<<<<<< HEAD
                     DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
                     CheckDlgButton(hwnd, IDs[i - (random * 10)], BST_CHECKED);
                     MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
                 }
             }
+=======
+                    PlaySound("Meow.wav", NULL, SND_ASYNC);
+                    DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
+                    CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
+                    nr_differences ++;
+                    CheckDlgButton(hwnd, IDs[i - + (random * 10)], BST_CHECKED);
+                    MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
+
+                    if (nr_differences == 10)
+                    {
+                        PlaySound("Level.wav", NULL, SND_ASYNC);
+                        MessageBoxA(NULL,"You win! Go to File->New game", "Congrats", MB_OK | MB_ICONINFORMATION);
+                        //break;
+                    }
+
+                }
+                  //PlaySound("Mistake.wav", NULL, SND_ASYNC);
+
+            }
+
+>>>>>>> 15089a1260b6f1c9969e379c8125b14593661d7e
         }
     break;
 
@@ -243,7 +362,8 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     POINT pt;
                     pt.x = LOWORD(lParam);
                     pt.y = HIWORD(lParam);
-                    wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
+
+                     wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
                     MessageBoxA(NULL,str, "Message", MB_OK | MB_ICONINFORMATION);
         }
     break;
@@ -296,12 +416,34 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
         }
     break;
+   // InvalidateRect(hwnd, &all_area, FALSE);
+
 
         default:                      /* for messages that we don't deal with */
             return DefWindowProc (hwnd, message, wParam, lParam);
     }
     return 0;
 }
+
+BOOL CALLBACK AboutDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) // works with DialogBox
+ {
+    switch(message)
+    {
+        case WM_INITDIALOG:
+            return TRUE;
+
+        case WM_COMMAND:
+            switch(LOWORD(wParam))
+            {
+            case IDOK:
+            case IDCANCEL:
+                EndDialog(hDlg,0);
+                return TRUE;
+            }
+            break;
+        }
+        return FALSE;
+ }
 
 int GetRandom(int n)
 {

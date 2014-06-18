@@ -21,14 +21,14 @@ Collaboration. Complex application.
 		  - create the repository on _github_
 		  - find a bitmap imagine which will be used 
 		  - create _checkboxes_
-      - add actions to _checkboxes_, if a difference is found - one is checked 
+      - create random access of pictures, when button new game is clicked 
 
   	* **Barbaros Nicolae** has the responsibility to:
   		- create the sketch for aplication
       - dissable window resize option
       - get the screen coordonates
       - implement the algorithm of finding the differences
-      - adding SFX
+      - add SFX
 
 
     * **Leahu Luminita** has the responsibility to:
@@ -37,6 +37,8 @@ Collaboration. Complex application.
     	- create custom _Icon_ and _menu_ for application
       - import bitmap files to apllication
       - create the title and the story
+      - add actions to _checkboxes_, if a difference is found - one is checked
+      - create dialogboxes
       - clean up and make the code visible
 
 * Make it useful (you may ask me to evaluate usefulness of your application idea) **(2 pt)**
