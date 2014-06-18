@@ -89,8 +89,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 /*  This function is called by the Windows function DispatchMessage()  */
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    static HWND checks[10];
-    static int  IDs[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    static HWND checks[11];
+    static int  IDs[11] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int x = 400,y = 500;
     static HDC hdcCat1, hdcCat2;
 
@@ -119,19 +119,20 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 	yMouse = GET_Y_LPARAM(lParam);
 
     //Array of Rectangles
-    RECT arr[10];
+    RECT arr[11];
 
     //Coordinates of the differences
     RECT rect1 = {508,122,569,165};
-    RECT rect2 = {511,161,562,177};
-    RECT rect3 = {546, 202, 556, 211 };
-    RECT rect4 = {578, 234, 602, 231};
-    RECT rect5 = {645, 325, 683, 330};
-    RECT rect6 = {586, 292, 622, 322};
-    RECT rect7 = {498, 359, 521, 388};
-    RECT rect8 = {520, 289, 557, 298};
-    RECT rect9 = {544, 392, 549, 394 };
-    RECT rect10 = {459, 319, 465, 323};
+    RECT rect2 = {511,161,568,180};  //sprincene
+    RECT rect3 = {540, 197, 560, 217 };//ochi
+    RECT rect4 = {583, 228, 614, 245};//mustata dreapta
+    RECT rect5 = {645, 328, 685, 348};//coada
+    RECT rect6 = {586, 292, 630, 327};//fluture
+    RECT rect7 = {498, 359, 526, 388};//hand
+    RECT rect8 = {520, 289, 557, 305};//piept
+    RECT rect9 = {540, 390, 550, 400 };//flowerbottom
+    RECT rect10 = {450, 310, 470, 330};//left
+    RECT rect11 = {469, 230, 500, 245};//mustata dreapta
 
     //Assigning the values of rect to it's possition in array
     arr[0] = rect1;
@@ -144,6 +145,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     arr[7] = rect8;
     arr[8] = rect9;
     arr[9] = rect10;
+    arr[10] = rect11;
 
     switch (message)                  /* handle the messages */
     {
@@ -172,7 +174,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     InvalidateRect(hwnd, &area, FALSE);
                     InvalidateRect(hwnd, &area, TRUE);
 
-                    for (int i=0; i<10; i++)
+                    for (int i=0; i<11; i++)
                     {
                         CheckDlgButton(hwnd, IDs[i], BST_UNCHECKED);
                     }
@@ -192,8 +194,6 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                         hwnd, (HMENU) IDs[i], hInst, NULL);
                 cout << IDs[i] << endl;
                 x+=16;
-                //TextOut (hdc,x,500,"asda",4);
-                x+=16;
             }
        break;
         }
@@ -208,20 +208,25 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     PlaySound("Level.wav", NULL, SND_ASYNC);
                     DrawEdge(hdc, &arr[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
                     CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
+                    MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
 
-                    //SendMessage(checks[i], BM_SETCHECK, BST_CHECKED, 0);
                 }
 
             }
 
-            char str [256];
-            POINT pt;
-            pt.x = LOWORD(lParam);
-            pt.y = HIWORD(lParam);
-            wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
 
-            MessageBoxA(NULL,str, "Message", MB_OK | MB_ICONINFORMATION);
 
+        }
+    break;
+
+    case WM_LBUTTONDBLCLK:
+        {
+                     char str [256];
+                    POINT pt;
+                    pt.x = LOWORD(lParam);
+                    pt.y = HIWORD(lParam);
+                    wsprintf(str, "Co-ordinates are \nX=%i and Y=%i", pt.x, pt.y);
+                    MessageBoxA(NULL,str, "Message", MB_OK | MB_ICONINFORMATION);
         }
     break;
 
