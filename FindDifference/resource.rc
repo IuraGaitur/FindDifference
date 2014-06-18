@@ -11,6 +11,37 @@ BEGIN
         MENUITEM "&New game",       IDI_NEW
         MENUITEM "&Exit",           IDI_EXIT
     END
+
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",          IDI_ABOUT
+        MENUITEM "&Rules",          IDI_RULE
+    END
+END
+
+//Dialog box
+IDI_DIALOG DIALOG DISCARDABLE 120, 50, 130, 110
+STYLE DS_MODALFRAME | WS_POPUP
+FONT 4 , "Courier"
+BEGIN
+    DEFPUSHBUTTON   "OK", IDOK, 45, 80, 40, 14
+    ICON            IDI_ICON, IDC_STATIC, 57, 10, 30, 30
+    CTEXT           "The game: Find a difference", IDC_STATIC, -10, 40, 150, 8
+    CTEXT           "by Nico, Iura, Luminita", IDC_STATIC, -10, 50, 150, 8
+
+
+END
+
+IDI_DIALOG_RULE DIALOG DISCARDABLE 120, 50, 130, 110
+STYLE DS_MODALFRAME | WS_POPUP
+FONT 4 , "Courier"
+BEGIN
+    DEFPUSHBUTTON   "OK", IDOK, 45, 90, 40, 14
+    ICON            IDI_ICON, IDC_STATIC, 0, 0, 30, 30
+    CTEXT           "Look attentively at the pictures.", IDC_STATIC, -10, 30, 150, 8
+    CTEXT           "If you found a difference,", IDC_STATIC, -10, 50, 150, 8
+    CTEXT           "press on second picture on it.", IDC_STATIC, -10, 70, 150, 8
+
 END
 
 BitmapFile BITMAP Cat1.bmp

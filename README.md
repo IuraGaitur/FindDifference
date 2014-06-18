@@ -38,6 +38,7 @@ Collaboration. Complex application.
       - import bitmap files to apllication
       - create the title and the story
       - add actions to _checkboxes_, if a difference is found - one is checked
+      - create dialogboxes
       - clean up and make the code visible
 
 * Make it useful (you may ask me to evaluate usefulness of your application idea) **(2 pt)**

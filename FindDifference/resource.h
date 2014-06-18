@@ -2,5 +2,12 @@
 #define IDI_NEW  102
 #define IDI_MENU 103
 #define IDI_EXIT 104
+#define IDI_ABOUT 106
+#define IDI_DIALOG 105
 #define IDB_TOOLS_GROUP 100
+#define IDC_STATIC 109
+#define IDI_RULE 110
+#define IDI_DIALOG_RULE 120
+
+
 #define TITLE_COLOR RGB(201, 65, 266)

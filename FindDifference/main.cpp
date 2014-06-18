@@ -15,10 +15,13 @@ static int iSysHeight;
 HINSTANCE hInst;
 
 char* Images[3] = {"Cat","Guffy","Lupu"};
-
+int random = 0;
+static int nr_differences = 0;
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
+BOOL    CALLBACK   AboutDlgProc  (HWND, UINT, WPARAM, LPARAM);
+
 int GetRandom(int n);
 
 /*  Make the class name into a global variable  */
@@ -112,12 +115,13 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     PAINTSTRUCT Ps;
     HDC hdc = GetDC(hwnd);
     HBRUSH hbrush;
+
     static RECT cat;
     static RECT guffy;
     static RECT wolf;
+    static RECT diff[30];
 
-    int random = GetRandom(3);
-    printf("%d",random);
+    //printf("%d",random);
     char* current_img = Images[random];
 
     char str[15];
@@ -160,18 +164,18 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     static RECT guffy7 = {498, 359, 526, 388};//hand
     static RECT guffy8 = {520, 289, 557, 305};//piept
     static RECT guffy9 = {540, 390, 550, 400 };//flowerbottom
-    RECT guffy10 = {450, 310, 470, 330};//left
+    static RECT guffy10 = {450, 310, 470, 330};//left
 
-    RECT wolf1 = {508,122,569,165};
-    RECT wolf2 = {511,161,568,180};  //sprincene
-    RECT wolf3 = {540, 197, 560, 217 };//ochi
-    RECT wolf4 = {583, 228, 614, 245};//mustata dreapta
-    RECT wolf5 = {645, 328, 685, 348};//coada
-    RECT wolf6 = {586, 292, 630, 327};//fluture
-    RECT wolf7 = {498, 359, 526, 388};//hand
-    RECT wolf8 = {520, 289, 557, 305};//piept
-    RECT wolf9 = {540, 390, 550, 400 };//flowerbottom
-    RECT wolf10 = {450, 310, 470, 330};//left
+    static RECT wolf1 = {508,122,569,165};
+    static RECT wolf2 = {511,161,568,180};  //sprincene
+    static RECT wolf3 = {540, 197, 560, 217 };//ochi
+    static RECT wolf4 = {583, 228, 614, 245};//mustata dreapta
+    static RECT wolf5 = {645, 328, 685, 348};//coada
+    static RECT wolf6 = {586, 292, 630, 327};//fluture
+    static RECT wolf7 = {498, 359, 526, 388};//hand
+    static RECT wolf8 = {520, 289, 557, 305};//piept
+    static RECT wolf9 = {540, 390, 550, 400 };//flowerbottom
+    static RECT wolf10 = {450, 310, 470, 330};//left
 
     //Assigning the values of cat to it's possition in array
     arr[0] = cat1;
@@ -207,8 +211,17 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     arr[28] = wolf9;
     arr[29] = wolf10;
 
-    //InvalidateRect(hwnd, &all_area, FALSE);
-
+    //Coordinates of the differences
+    diff[0] = {508,122,569,165};
+    diff[1] = {511,161,568,180};  //sprincene
+    diff[2] = {540, 197, 560, 217 };//ochi
+    diff[3] = {583, 228, 614, 245};//mustata dreapta
+    diff[4] = {645, 328, 685, 348};//coada
+    diff[5] = {586, 292, 630, 327};//fluture
+    diff[6] = {498, 359, 526, 388};//hand
+    diff[7] = {520, 289, 557, 305};//piept
+    diff[8] = {540, 390, 550, 400 };//flowerbottom
+    diff[9] = {450, 310, 470, 330};//left
 
     switch (message)                  /* handle the messages */
     {
@@ -230,17 +243,31 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
              case IDI_EXIT:      //Exit Coammand
                 {
                     PostQuitMessage (0);
+                break;
                 }
 
             case IDI_NEW:
                 {
                     InvalidateRect(hwnd, &area, FALSE);
                     InvalidateRect(hwnd, &area, TRUE);
-
+                    random = GetRandom(3);
                     for (int i=0; i<11; i++)
                     {
                         CheckDlgButton(hwnd, IDs[i], BST_UNCHECKED);
                     }
+                break;
+                }
+
+            case IDI_ABOUT:
+                {
+                    DialogBox(hInst, MAKEINTRESOURCE(IDI_DIALOG), hwnd, AboutDlgProc);
+                break;
+                }
+
+            case IDI_RULE:
+                {
+                    DialogBox(hInst, MAKEINTRESOURCE(IDI_DIALOG_RULE), hwnd, AboutDlgProc);
+                break;
                 }
             }
         break;
@@ -263,17 +290,22 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     //Work with LButton
     case WM_LBUTTONDOWN:
         {
-            for (int i = 0; i < sizeof(arr)/sizeof(RECT); i++)
+            for (int i = 0; i < sizeof(diff)/sizeof(RECT); i++)
             {
-                if(arr[i].left < xMouse && xMouse < arr[i].right && arr[i].top < yMouse && yMouse < arr[i].bottom )
+                if(diff[i].left < xMouse && xMouse < diff[i].right && diff[i].top < yMouse && yMouse < diff[i].bottom )
                 {
                     PlaySound("Level.wav", NULL, SND_ASYNC);
-                    DrawEdge(hdc, &arr[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
+                    DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
                     CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
+                    nr_differences ++;
                     MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
 
+                    if (nr_differences == 10)
+                    {
+                        MessageBoxA(NULL,"You win! Go to File->New game", "Congrats", MB_OK | MB_ICONINFORMATION);
+                        //break;
+                    }
                 }
-
             }
 
         }
@@ -305,7 +337,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
             DeleteObject(hdcCat2);
 
-            GetClientRect(hwnd, &cat);  // retrieves the coordinates of a window's client area
+            //GetClientRect(hwnd, &cat);  // retrieves the coordinates of a window's client area
 
             // create the title
             font_forte   = CreateFont(30, 27.5, 0, 0, FW_DONTCARE, false, false, false,
@@ -339,12 +371,34 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
         }
     break;
+   // InvalidateRect(hwnd, &all_area, FALSE);
+
 
         default:                      /* for messages that we don't deal with */
             return DefWindowProc (hwnd, message, wParam, lParam);
     }
     return 0;
 }
+
+BOOL CALLBACK AboutDlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) // works with DialogBox
+ {
+    switch(message)
+    {
+        case WM_INITDIALOG:
+            return TRUE;
+
+        case WM_COMMAND:
+            switch(LOWORD(wParam))
+            {
+            case IDOK:
+            case IDCANCEL:
+                EndDialog(hDlg,0);
+                return TRUE;
+            }
+            break;
+        }
+        return FALSE;
+ }
 
 int GetRandom(int n)
 {
