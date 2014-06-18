@@ -253,7 +253,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                     if(coeficient == 1.5)
                     PlaySound("goofy.wav", NULL, SND_ASYNC);
                     if(coeficient == 1)
-                    PlaySound("Meow.wav", NULL, SND_ASYNC);
+                    PlaySound("Wolf.wav", NULL, SND_ASYNC);
 
                     DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
                     CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
