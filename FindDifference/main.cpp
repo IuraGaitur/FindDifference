@@ -12,6 +12,9 @@ static int iSysHeight;
 HINSTANCE hInst;
 
 char* Images[3] = {"Cat","Guffy","Lupu"};
+char* Sounds[3] = {"Wolf.wav", "goofy.wav", "Meow.wav"};
+char* Story[3]  = {"Our little cat fell in some flower bushes.", "Goofy fell in the river when was fishing. ", "The wolf had terrible sunstroke today.    "};
+
 int random = 0;
 float coeficient = 3;
 
@@ -107,9 +110,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     static HBITMAP hbmpImg1 = NULL ;
     static HBITMAP hbmpImg2 = NULL;
 
-    static HFONT font_forte, text_font;
-    static RECT area     = {400, 80, 707, 470};
-    static RECT all_area = {5, 5, 395, 640};
+    static HFONT font_forte, text_font, font_forte1, text_font1;;
+    static RECT area  = {400, 80, 707, 470};
+    static RECT write = {45, 501, 282, 522};
 
     PAINTSTRUCT Ps;
     HDC hdc = GetDC(hwnd);
@@ -118,7 +121,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
     static RECT diff[30];
     char* current_img = Images[random];
+    char* current_story = Story[random];
     char str[15];
+
     sprintf(str,"%s1.bmp",current_img);
     // load bitmaps
     hbmpImg1 = (HBITMAP)LoadImage(hInst, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
@@ -198,6 +203,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 {
                     InvalidateRect(hwnd, &area, FALSE);
                     InvalidateRect(hwnd, &area, TRUE);
+
+                    InvalidateRect(hwnd, &write, FALSE);
+                    InvalidateRect(hwnd, &write, TRUE);
                     random = GetRandom(3);
                     for (int i=0; i<11; i++)
                     {
@@ -239,11 +247,14 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     case WM_LBUTTONDOWN:
         {
             if(random == 0)
+            {
                 coeficient = 3 ;
+            }
             if(random == 1)
                 coeficient = 1.5;
             if(random == 2)
                 coeficient = 1;
+
             for (int i = 0+ random * 10; i < (sizeof(diff)/sizeof(diff[0]))/coeficient  ; i++)
             {
                 if(diff[i].left < xMouse && xMouse < diff[i].right && diff[i].top < yMouse && yMouse < diff[i].bottom )
@@ -302,10 +313,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             BitBlt(hdc, 400, 80, bitmapCat2.bmWidth, bitmapCat2.bmHeight, hdcCat2, 0, 0, SRCCOPY);
             DeleteObject(hdcCat2);
 
-            //GetClientRect(hwnd, &cat);  // retrieves the coordinates of a window's client area
-
             // create the title
             font_forte   = CreateFont(30, 27.5, 0, 0, FW_DONTCARE, false, false, false,
+                              DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+                              DEFAULT_QUALITY, FF_DONTCARE, "Forte");
+            font_forte1  = CreateFont(0, 0, 0, 0, FW_DONTCARE, false, false, false,
                               DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
                               DEFAULT_QUALITY, FF_DONTCARE, "Forte");
 
@@ -313,8 +325,15 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             SetTextColor(hdc, TITLE_COLOR);                     // setting new text color
             TextOut( hdc, 115, 20,  "Find the difference", 19);
 
+            text_font1  = (HFONT)SelectObject(hdc, font_forte1);
+            TextOut(hdc, 45, 501, current_story, 42);
+            TextOut(hdc, 45, 520, "And have changed, it needs your ", 32);
+            TextOut(hdc, 45, 539, "help to find differences!", 25);
+
             DeleteObject(font_forte);
             DeleteObject(text_font);
+            DeleteObject(font_forte1);
+            DeleteObject(text_font1);
 
             EndPaint(hwnd, &Ps);
 
