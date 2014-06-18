@@ -1,6 +1,5 @@
 #include <windows.h>
 #include "resource.h"
-#include <iostream>
 #include <windowsx.h>
 #include <mmsystem.h>
 #include <string>
@@ -8,18 +7,14 @@
 #include <time.h>
 #pragma comment(lib,"Winmm.lib")
 
-using namespace std;
-
 static int iSysWidth;
 static int iSysHeight;
 HINSTANCE hInst;
 
 char* Images[3] = {"Cat","Guffy","Lupu"};
 int random = 0;
-<<<<<<< HEAD
+
 static int nr_differences = 0;
-=======
->>>>>>> d961883fe5481a8cb9c3ede2a336766feba36d4c
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -321,22 +316,23 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             {
                 if(diff[i].left < xMouse && xMouse < diff[i].right && diff[i].top < yMouse && yMouse < diff[i].bottom )
                 {
-                    PlaySound("Level.wav", NULL, SND_ASYNC);
+                    PlaySound("Meow.wav", NULL, SND_ASYNC);
                     DrawEdge(hdc, &diff[i], BDR_RAISEDOUTER | BDR_SUNKENINNER, BF_RECT);
-<<<<<<< HEAD
                     CheckDlgButton(hwnd, IDs[i], BST_CHECKED);
                     nr_differences ++;
-=======
                     CheckDlgButton(hwnd, IDs[i - + (random * 10)], BST_CHECKED);
->>>>>>> d961883fe5481a8cb9c3ede2a336766feba36d4c
                     MessageBoxA(NULL,"You found it! Good Job", "Congrats", MB_OK | MB_ICONINFORMATION);
 
                     if (nr_differences == 10)
                     {
+                        PlaySound("Level.wav", NULL, SND_ASYNC);
                         MessageBoxA(NULL,"You win! Go to File->New game", "Congrats", MB_OK | MB_ICONINFORMATION);
                         //break;
                     }
+
                 }
+                  //PlaySound("Mistake.wav", NULL, SND_ASYNC);
+
             }
 
         }

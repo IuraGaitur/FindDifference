@@ -28,7 +28,7 @@ Collaboration. Complex application.
       - dissable window resize option
       - get the screen coordonates
       - implement the algorithm of finding the differences
-      - adding SFX
+      - add SFX
 
 
     * **Leahu Luminita** has the responsibility to:
