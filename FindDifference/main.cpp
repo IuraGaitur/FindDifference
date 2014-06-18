@@ -205,7 +205,6 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                         WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
                         x, 500, 12, 12,
                         hwnd, (HMENU) IDs[i], hInst, NULL);
-                cout << IDs[i] << endl;
                 x+=16;
             }
        break;

@@ -1,12 +1,15 @@
 # depslib dependency file v1.0
 154051336 <<<<< HEAD
 
-1403097595 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
+1403100490 source:d:\university\anul2\sem2\wp\lab5\finddifference\finddifference\main.cpp
 	<windows.h>
 	"resource.h"
 	<iostream>
 	<windowsx.h>
 	<mmsystem.h>
+	<string>
+	<stdio.h>
+	<time.h>
 
 1403001337 >
 
