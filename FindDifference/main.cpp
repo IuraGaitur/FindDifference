@@ -112,7 +112,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     HDC hdc = GetDC(hwnd);
     HBRUSH hbrush;
     RECT rect;
-    int random = GetRandom(4);
+    int random = GetRandom(3);
     printf("%d",random);
     char* current_img = Images[random];
 
