@@ -11,6 +11,7 @@ static int iSysWidth;
 static int iSysHeight;
 HINSTANCE hInst;
 bool toRender = true;
+bool notFound = false;
 
 char* Images[3] = {"Cat","Guffy","Lupu"};
 char* Sounds[3] = {"Wolf.wav", "goofy.wav", "Meow.wav"};
@@ -284,13 +285,12 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                             PlaySound("Level.wav", NULL, SND_ASYNC);
                             MessageBoxA(NULL,"You won! Go to File->New game", "Congrats", MB_OK | MB_ICONINFORMATION);
                         }
-
+                    notFound = false;
                 }
-                else {
-                  // PlaySound("FailSound.wav", NULL, SND_ASYNC);
-                    }
             }
-
+            if(notFound)
+                PlaySound("FailSound.wav", NULL, SND_ASYNC);
+            notFound = true;
         }
     break;
 
