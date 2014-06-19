@@ -10,6 +10,7 @@
 static int iSysWidth;
 static int iSysHeight;
 HINSTANCE hInst;
+bool toRender = true;
 
 char* Images[3] = {"Cat","Guffy","Lupu"};
 char* Sounds[3] = {"Wolf.wav", "goofy.wav", "Meow.wav"};
@@ -124,7 +125,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     char* current_story = Story[random];
     char str[15];
 
-    sprintf(str,"%s1.bmp",current_img);
+    if(toRender)
+    {
+       sprintf(str,"%s1.bmp",current_img);
     // load bitmaps
     hbmpImg1 = (HBITMAP)LoadImage(hInst, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpImg1, sizeof(bitmapCat1), &bitmapCat1);
@@ -132,6 +135,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
     sprintf(str,"%s2.bmp",current_img);
     hbmpImg2 = (HBITMAP)LoadImage(hInst, str, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
     GetObject(hbmpImg2, sizeof(bitmapCat2), &bitmapCat2);
+    toRender = false;
+    }
+
 
     //Static variables for mouse Coordinates
     static int xMouse, yMouse;
@@ -201,6 +207,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 
             case IDI_NEW:
                 {
+                    toRender  = true;
                     InvalidateRect(hwnd, &area, FALSE);
                     InvalidateRect(hwnd, &area, TRUE);
 
